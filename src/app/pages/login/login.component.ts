@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { LoginService } from '../login/login.service';
+import { MenuComponent } from '../menu/menu.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -22,10 +23,10 @@ export class LoginComponent implements OnInit {
   loginDetails: any;
   //loginData: any[];
 
-  constructor(private loginService: LoginService, public fb: FormBuilder,private router: Router) {
+  constructor(private loginService: LoginService, public fb: FormBuilder, private router: Router) {
     // If we navigated to this page, we will have an item available as a nav param
   //this.parameter1 = navParams.get('item');
-  console.log(this.login);
+    console.log(this.login);
   }
   //alert(selectedItem);
 ngOnInit() {
@@ -48,16 +49,15 @@ ngOnInit() {
                        login => {
                this.loginDetails =JSON.stringify(login);
                console.log(login["message"]);
-              console.log("Anjana "+this.login);
+              //console.log("Anjana "+this.login);
               //console.log("Anjana "+this.login["message"]);
 
               if(login["message"]=='Valid Credentials'){
+              localStorage.setItem('user', JSON.stringify(login["value"]));
+              this.currentUser= JSON.parse(localStorage.getItem("user"));
               this.router.navigate(['menu']);
               //localStorage.setItem('names',"anjana");
               //this.currentUser=localStorage.getItem("names");
-              localStorage.setItem('user', JSON.stringify(login["value"]));
-              this.currentUser= JSON.parse(localStorage.getItem("user"));
-
               console.log(this.currentUser[0].id);
               this.userName=this.currentUser[0].first_name;
             //this.currentUser= localStorage.getItem("user");
@@ -70,7 +70,7 @@ ngOnInit() {
               }
 
                },
-                       error =>  this.errorMessage = <any>error); 
+               error =>  this.errorMessage = <any>error); 
   }
 
   public createAccount(){

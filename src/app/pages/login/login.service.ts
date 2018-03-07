@@ -6,12 +6,13 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 import { LoginComponent } from '../login/login.component';
+import { GlobalVariable } from '../../global';
 
 @Injectable()
 export class LoginService {
   selectedItem: any;
   //loginData: any[];
-    public LoginUrl = 'http://106.51.72.111:8083/SoftconsSuiteRestService/v1/login';  // URL to web API
+    public LoginUrl = GlobalVariable.BASE_API_URL + '/login';  // URL to web API
   //alert(heroesUrl1);
   constructor( private http: Http, private router: Router) {
     // If we navigated to this page, we will have an item available as a nav param

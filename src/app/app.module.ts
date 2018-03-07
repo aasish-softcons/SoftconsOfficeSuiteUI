@@ -9,16 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginService } from './pages/login/login.service';
+import { MenuComponent } from './pages/menu/menu.component';
+import { GlobalComponent } from './global/global.component';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent }
+    { path: '', component: LoginComponent },
+    { path: 'menu', component: MenuComponent }
   ];
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MenuComponent,
+    GlobalComponent
   ],
   imports: [
     BrowserModule,
