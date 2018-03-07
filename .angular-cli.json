@@ -19,9 +19,29 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+	    "assets/lib/bootstrap/css/bootstrap.min.css",
+		"assets/lib/Hover/hover.css",
+		"assets/lib/fontawesome/css/font-awesome.css",
+		"assets/lib/weather-icons/css/weather-icons.css",
+		"assets/lib/ionicons/css/ionicons.css",
+		"assets/lib/jquery-toggles/toggles-full.css",
+		"assets/lib/morrisjs/morris.css",
+		"assets/css/quirk.css"
       ],
-      "scripts": [],
+      "scripts": [
+		"assets/lib/jquery/jquery.js",
+		"assets/lib/jquery-ui/jquery-ui.js",
+		"assets/lib/bootstrap/js/bootstrap.js",
+		"assets/lib/jquery-toggles/toggles.js",
+		"assets/lib/morrisjs/morris.js",
+		"assets/lib/raphael/raphael.js",
+		"assets/lib/flot/jquery.flot.js",
+		"assets/lib/flot/jquery.flot.resize.js",
+		"assets/lib/flot-spline/jquery.flot.spline.js",
+		"assets/lib/jquery-knob/jquery.knob.js",
+		"assets/js/quirk.js",
+		"assets/js/dashboard.js"	  
+	  ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
