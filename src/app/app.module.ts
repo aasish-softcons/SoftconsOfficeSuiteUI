@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginService } from './pages/login/login.service';
 import { MenuComponent } from './pages/menu/menu.component';
-import { GlobalComponent } from './global/global.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
-    { path: 'menu', component: MenuComponent }
+    { path: 'menu', component: MenuComponent },
+    { path: 'settings', component: SettingsComponent }
   ];
 
 
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     MenuComponent,
-    GlobalComponent
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
