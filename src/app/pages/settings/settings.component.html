@@ -1770,7 +1770,7 @@
                 </div>
                 <div class="tab-pane" id="settings6">
 				
-				
+				<form [formGroup]="projectForm">
 				  <div class="table-responsive">
 					<table id="dataTable1" class="table table-bordered table-striped-col">
 					  <thead>
@@ -1787,15 +1787,53 @@
 					  </thead>
 					  <tbody>
 						<tr>
-						  <td><input type="text" name="customer_name" /></td>
-						  <td><input type="text" name="project_name" /></td>
-						  <td><input type="text" name="start_date" /></td>
-						  <td><input type="text" name="end_date" /></td>
-						  <td><input type="text" name="billing" /></td>
-						  <td><input type="text" name="billing_type" /></td>
-						  <td><input type="text" name="team_name" /></td>
-						  <td><i class="fa fa-plus"></i></td>
-						</tr>						  
+						  <td><!-- <input type="text" class="form-control" formControlName="customer_name" [(ngModel)]="customer_name" name="customer_name" /> -->
+						  	  <select class="form-control" formControlName="customer_name" [(ngModel)]="customer_name">
+						  	  	<option value="">Choose Customer</option>
+						  	  	<option value="1">Customer1</option>
+						  	  	<option value="2">Customer2</option>
+						  	  	<option value="3">Customer3</option>
+						  	  </select>						  
+						  </td>
+						  <td><input type="text" class="form-control" formControlName="project_name" [(ngModel)]="project_name" name="project_name" /></td>
+						  <td><input type="text" class="form-control" formControlName="start_date" [(ngModel)]="start_date" name="start_date" /></td>
+						  <td><input type="text" class="form-control" formControlName="end_date" [(ngModel)]="end_date" name="end_date" /></td>
+						  <td><input type="text" class="form-control" formControlName="billable_type" [(ngModel)]="billable_type" name="billable_type" /></td>
+						  <td><input type="text" class="form-control" formControlName="billing_type" [(ngModel)]="billing_type" name="billing_type" /></td>
+						  <td><!-- <input type="text" class="form-control" formControlName="team_name" [(ngModel)]="team_name" name="team_name" /> -->
+						  	  <select class="form-control" formControlName="team_name" [(ngModel)]="team_name">
+						  	  	<option value="">Choose Team</option>
+						  	  	<option value="1">Team1</option>
+						  	  	<option value="2">Team2</option>
+						  	  	<option value="3">Team3</option>
+						  	  </select>
+						  </td>
+						  <td><input type="submit" value="Add" /><i class="fa fa-plus"></i></td>
+						</tr>		
+						<tr *ngFor="let projects of projectData">
+						  <td>
+						  	  <select class="form-control" formControlName="customer_name" [(ngModel)]="customer_name" readonly>
+						  	  	<option value="">Choose Customer</option>
+						  	  	<option value="1">Customer1</option>
+						  	  	<option value="2">Customer2</option>
+						  	  	<option value="3">Customer3</option>
+						  	  </select>						  
+						  </td>
+						  <td><input type="text" class="form-control" formControlName="project_name" value="projects.project_name" [(ngModel)]="project_name" name="project_name" readonly /></td>
+						  <td><input type="text" class="form-control" formControlName="start_date" [(ngModel)]="start_date" name="start_date" readonly /></td>
+						  <td><input type="text" class="form-control" formControlName="end_date" [(ngModel)]="end_date" name="end_date" readonly /></td>
+						  <td><input type="text" class="form-control" formControlName="billable_type" [(ngModel)]="billable_type" name="billable_type" readonly /></td>
+						  <td><input type="text" class="form-control" formControlName="billing_type" [(ngModel)]="billing_type" name="billing_type" readonly /></td>
+						  <td>
+						  	  <select class="form-control" formControlName="team_name" [(ngModel)]="team_name" readonly>
+						  	  	<option value="">Choose Team</option>
+						  	  	<option value="1">Team1</option>
+						  	  	<option value="2">Team2</option>
+						  	  	<option value="3">Team3</option>
+						  	  </select>
+						  </td>
+						  <td><input type="submit" value="Add" /><i class="fa fa-plus"></i></td>
+						</tr>	
 						<tr>
 						  <td>Tiger Nixon</td>
 						  <td>System Architect</td>
@@ -1804,7 +1842,7 @@
 						  <td>2011/04/25</td>
 						  <td>2011/04/25</td>
 						  <td>2011/04/25</td>
-						  <td><i class="fa fa-pencil"></i></td>
+						  <td><input type="button" value="Update" /><i class="fa fa-plus"></i><i class="fa fa-pencil"></i></td>
 						</tr>
 						<tr>
 						  <td>Sonya Frost</td>
@@ -1829,55 +1867,8 @@
 					  </tbody>
 					</table>
 				  </div>				
-				
-				
- 				  <!--<form>			  
-					  <div class="form-group">
-						<select id="select5" class="form-control" style="width: 100%">
-						  <option value="">Company Name</option>
-						</select>	
-					  </div>	
-					  <div class="form-group">
-						<select id="select5" class="form-control" style="width: 100%">
-						  <option value="">Client Name</option>
-						</select>	
-					  </div>						  
-					  <div class="form-group">
-						<input type="text" placeholder="Project Name" class="form-control">
-					  </div>
-					  <div class="form-group">
-						<input type="date" placeholder="Start Date" class="form-control">
-					  </div>
-					  <div class="form-group">
-						<input type="date" placeholder="End Date" class="form-control">
-					  </div>			
-					  <div class="form-group">
-						<select id="select5" class="form-control" style="width: 100%">
-						  <option value="">Priority</option>
-						  <option value="High">High</option>
-						  <option value="Medium">Medium</option>
-						  <option value="Low">Low</option>
-						</select>
-					  </div>
-					  <div class="form-group">
-						<select id="select5" class="form-control" style="width: 100%">
-						  <option value="">Choose Status</option>
-						  <option value="Open">Open</option>
-						  <option value="Pending">Pending</option>
-						  <option value="Resolve">Resolved</option>
-						  <option value="Close">Closed</option>
-						</select>									
-					  </div>
-					  <div class="form-group">
-						<select id="select5" class="form-control" style="width: 100%">
-						  <option value="">Choose Type</option>
-						</select>									
-					  </div>					  
-					  <div class="form-group">
-						<input type="submit" name="Update" value="Update" class="btn btn-primary" />
-						<input type="button" name="Cancel" value="Cancel" class="btn btn-danger" />
-					  </div>					  
-				  </form>-->                  
+				</form>
+				                
                 </div>
                 <div class="tab-pane" id="settings7">
 				

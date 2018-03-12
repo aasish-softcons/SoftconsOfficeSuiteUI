@@ -13,18 +13,41 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [ SettingsService ]
 })
 export class SettingsComponent implements OnInit {
-  isDisplay=true;
+  isDisplay = true;
   errorMessage: string;
-  name:string;
+  name: string;
   company: SettingsComponent[];
   mode = 'Observable';
-  parameter1 : any;
+  parameter1: any;
   selectedItem: any;
-  //loginData: any[];
-  text:string;
-  currentUser:any;
-  companyId:any;
-   companyData:any[];
+  text: string;
+  currentUser: any;
+  companyId: any;
+  companyData: any[];
+  company_name: any;
+  contact_person: any;
+  address: any;
+  phone_number: any;
+  email_id: any;
+  subscription_date: any;
+  expiry_date: any;
+  asset_limit: any;
+  user_limit: any;
+  license_version: any;
+  license_number: any;
+  license_count: any;
+  version: any;
+  amount_paid: any;
+
+  projectData: any[];
+  customer_name: any;
+  project_name: any;
+  start_date: any;
+  end_date: any;
+  billable_type: any;
+  billing_type: any;
+  team_name: any;
+
   constructor(private settingsService: SettingsService, public fb: FormBuilder, private router: Router) { }
 
  public companyForm = this.fb.group({
@@ -42,6 +65,16 @@ export class SettingsComponent implements OnInit {
      license_count: ["", Validators.required],
      version: ["", Validators.required],
      amount_paid: ["", Validators.required]
+});
+
+   public projectForm = this.fb.group({
+     customer_name: ["", Validators.required],
+     project_name: ["", Validators.required],
+     start_date: ["", Validators.required],
+     end_date: ["", Validators.required],
+     billable_type: ["", Validators.required],
+     billing_type: ["", Validators.required],
+     team_name: ["", Validators.required]
 });
 
   getCompany() {
@@ -62,7 +95,6 @@ export class SettingsComponent implements OnInit {
                 //this.currentUser= JSON.parse(localStorage.getItem("user"));
                 //console.log(this.currentUser);
                 this.companyData=company;
-                console.log("Shwetha the Great");
                 console.log(this.companyData);
               }
               else{
@@ -73,11 +105,12 @@ export class SettingsComponent implements OnInit {
                 error =>  this.errorMessage = <any>error);
   }
 
+
   ngOnInit() {
     this.getCompany();
   }
 
- updateCompany(event) {
+updateCompany(event) {
  //console.log("anjana"+this.newtext);
 
  this.isDisplay = true;
@@ -96,18 +129,18 @@ console.log(companyData);
               if(company) {
                 localStorage.setItem('company', JSON.stringify(company));
                 this.currentUser= JSON.parse(localStorage.getItem("user"));
-                console.log("Shwetha The Great");
               //this.router.navigate(['menu']);
               }
               else{
-                console.log("Shwetha The Sweet");
               //this.error=true;
 
               }
 
                },
                        error =>  this.errorMessage = <any>error);
-  }
+}
+
+
 
 
 

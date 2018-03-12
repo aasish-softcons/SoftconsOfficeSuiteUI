@@ -18,6 +18,13 @@ export class SettingsService {
   companyId = localStorage.getItem("companyID")
   public LoginUrl1 = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public LoginUrl2 = GlobalVariable.BASE_API_URL + 'updateCompany';
+
+
+
+  public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
+  public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
+  public UpdateProjectUrl = GlobalVariable.BASE_API_URL + 'updateProject';
+
 // function to get company details
   getCompany(): Observable<SettingsComponent[]> {
 

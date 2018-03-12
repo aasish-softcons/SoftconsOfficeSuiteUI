@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   selectedItem: any;
   loginDetails: any;
   //loginData: any[];
+  email: any;
+  password: any;
 
   constructor(private loginService: LoginService, public fb: FormBuilder, private router: Router) {
     // If we navigated to this page, we will have an item available as a nav param
