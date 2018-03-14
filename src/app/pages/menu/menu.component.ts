@@ -7,9 +7,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  
+ 
 
-  constructor(private router:Router) { }
+  constructor(private router:Router) { 
+   
+    }
 
   ngOnInit() {
   }
