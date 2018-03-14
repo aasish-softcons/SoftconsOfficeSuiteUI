@@ -326,6 +326,48 @@ updateDepartment(id,name,head,location,functions,member){
   }
    }
       
+      
+      
+ deleteDepartment(id,name,head,location,functions,member){
+   this.departmentId=id;
+ let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:'',end_date:''}) };
+   
+   this.settingsService.deleteDepartment(departmentData)
+                     .subscribe(
+                     department => {
+            console.log("inside component");
+              console.log(JSON.stringify(department));
+               
+          
+              if(department["message"]=="You are successfully made Inactive")
+              
+              {
+               
+              this.showalertsuccess=true;
+               this.departmentInfo="Department deleted successfully";
+                 this.getDepartment();
+               
+                
+                setTimeout(function() {
+       this.showalertsuccess = false;
+       
+   }.bind(this), 3000)
+              }
+              else{
+              
+                   this.showalertfail=true;
+               this.departmentInfo="Department delete failed";      
+                setTimeout(function() {
+          this.showalertfail = false;
+       
+         }.bind(this), 3000) 
+                    
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  }
+ }
 
 
 

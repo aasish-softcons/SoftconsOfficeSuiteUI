@@ -175,6 +175,7 @@
                               </td>
 						 <td *ngIf="row_no !== editRowId"> <a (click)="editDepartment(row_no)" ><i class="fa fa-pencil"></i></a></td>
 						<td *ngIf="row_no === editRowId"><button (click)="updateDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)">Update</button></td>		
+						<td><a (click)="deleteDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)"><i class="fa fa-trash"></i></a></td>
 						</tr>
 						
 											

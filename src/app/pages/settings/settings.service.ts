@@ -22,6 +22,7 @@ export class SettingsService {
  public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentList';
  public addDepartmentUrl =  GlobalVariable.BASE_API_URL + 'addDepartment';
  public updateDepartmentUrl =  GlobalVariable.BASE_API_URL + 'updateDepartment';
+ public deleteDepartmentUrl =  GlobalVariable.BASE_API_URL + 'deleteDepartment';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -111,6 +112,27 @@ updateCompany(companyData): Observable<SettingsComponent[]> {
 
  console.log("anjana"+ JSON.stringify(departmentData));
     return this.http.post(this.updateDepartmentUrl, departmentData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
+  
+  
+  //function to delete department
+
+ deleteDepartment(departmentData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
+
+    //let companyId = id;
+   console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(departmentData));
+    return this.http.post(this.deleteDepartmentUrl, departmentData, options)
                     .map(this.extractData)
                     .catch(this.handleError);
 
