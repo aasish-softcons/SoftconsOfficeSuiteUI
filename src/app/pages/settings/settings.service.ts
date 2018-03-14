@@ -32,7 +32,7 @@ export class SettingsService {
 
 
     //let companyId = id;
-console.log(this.LoginUrl1);
+// console.log(this.LoginUrl1);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
   let options = new RequestOptions({ headers: headers });
 
