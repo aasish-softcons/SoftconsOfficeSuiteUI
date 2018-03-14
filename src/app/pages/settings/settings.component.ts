@@ -13,8 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [ SettingsService ]
 })
 export class SettingsComponent implements OnInit {
-  showalertsuccess=false;
-  showalertfail=false;
+   disabled=false;
    date=new Date();
   isDisplay = true;
   errorMessage: string;
@@ -42,6 +41,9 @@ export class SettingsComponent implements OnInit {
   license_count: any;
   version: any;
   amount_paid: any;
+  companyInfo:string;
+  companyAlertSuccess=false;
+  companyAlertFail=false;
   
   departmentData:any[];
   department:SettingsComponent[];
@@ -53,6 +55,8 @@ export class SettingsComponent implements OnInit {
   functions:string;
   members:number;
   departmentInfo:string;
+   showalertsuccess=false;
+  showalertfail=false;
 
   projectData: any[];
   customer_name: any;
@@ -63,23 +67,27 @@ export class SettingsComponent implements OnInit {
   billing_type: any;
   team_name: any;
 
-  constructor(private settingsService: SettingsService, public fb: FormBuilder, private router: Router) { }
+  constructor(private settingsService: SettingsService, public fb: FormBuilder, private router: Router) { 
+      this.currentUser= JSON.parse(localStorage.getItem("user"));
+        this.companyId=this.currentUser[0].company_id;
+          this.userId=this.currentUser[0].id;  
+  }
 
  public companyForm = this.fb.group({
-     company_name: ["", Validators.required],
+     company_name: [""],
      contact_person: ["", Validators.required],
      address: ["", Validators.required],
      phone_number: ["", Validators.required],
-     email_id: ["", Validators.required],
-    subscription_date: ["", Validators.required],
-     expiry_date: ["", Validators.required],
-     asset_limit: ["", Validators.required],
-    user_limit: ["", Validators.required],
-     license_version: ["", Validators.required],
-     license_number: ["", Validators.required],
-    license_count: ["", Validators.required],
-    version: ["", Validators.required],
-    amount_paid: ["", Validators.required]
+     email_id: [""],
+    subscription_date: [""],
+     expiry_date: [""],
+     asset_limit: [""],
+    user_limit: [""],
+     license_version: [""],
+     license_number: [""],
+    license_count: [""],
+    version: [""],
+    amount_paid: [""]
 });
 
    public projectForm = this.fb.group({
@@ -93,13 +101,13 @@ export class SettingsComponent implements OnInit {
 });
 
   getCompany() {
-
+ console.log("inside get company");
   this.currentUser= JSON.parse(localStorage.getItem("user"));
   this.companyId=this.currentUser[0].company_id;
   console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
 
-      this.settingsService.getCompany()
+      this.settingsService.getCompany(this.companyId)
                      .subscribe(
                       company => {
 
@@ -122,13 +130,14 @@ export class SettingsComponent implements OnInit {
 
 
   ngOnInit() {
-     this.currentUser= JSON.parse(localStorage.getItem("user"));
-  this.companyId=this.currentUser[0].company_id;
-    this.userId=this.currentUser[0].id;
+   console.log("settings");
+     this.getCompany();
+    
+    this.getDepartment();
+     
   console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
-    this.getCompany();
-    this.getDepartment();
+   
   }
 
 updateCompany(event) {
@@ -147,13 +156,28 @@ console.log(companyData);
                      .subscribe(
                       company => {
 
-              if(company) {
+              if(company["message"]=="You are Successfully Updated a Company") {
+                //console.log( company);
+                this.disabled=true;
+               this.companyAlertSuccess=true;
+                this.companyInfo="Company Updated Successfully";
                 localStorage.setItem('company', JSON.stringify(company));
                 this.currentUser= JSON.parse(localStorage.getItem("user"));
+                setTimeout(function() {
+              this.companyAlertSuccess=false;
+       
+               }.bind(this), 3000)
+                
               //this.router.navigate(['menu']);
               }
               else{
               //this.error=true;
+                this.companyInfo="Error occured while updating department ";
+                 this.companyAlertFail=true;
+                setTimeout(function() {
+              this.companyAlertFail=false;
+       
+               }.bind(this), 3000)
 
               }
 

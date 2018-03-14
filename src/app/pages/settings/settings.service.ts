@@ -16,8 +16,8 @@ export class SettingsService {
 
   constructor(private  http: Http, private router:Router) { }
   companyId = localStorage.getItem("companyID")
-  public LoginUrl1 = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
-  public LoginUrl2 = GlobalVariable.BASE_API_URL + 'updateCompany';
+  public getCompanyUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/';
+  public updateCompanyUrl = GlobalVariable.BASE_API_URL + 'updateCompany';
 
  public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentList';
  public addDepartmentUrl =  GlobalVariable.BASE_API_URL + 'addDepartment';
@@ -28,7 +28,7 @@ export class SettingsService {
   public UpdateProjectUrl = GlobalVariable.BASE_API_URL + 'updateProject';
 
 // function to get company details
-  getCompany(): Observable<SettingsComponent[]> {
+  getCompany(companyId): Observable<SettingsComponent[]> {
 
 
     //let companyId = id;
@@ -36,7 +36,7 @@ console.log(this.LoginUrl1);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
   let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(this.LoginUrl1, options)
+    return this.http.get(this.getCompanyUrl + companyId, options)
                     .map(this.extractData)
                     .catch(this.handleError);
 
@@ -50,7 +50,7 @@ updateCompany(companyData): Observable<SettingsComponent[]> {
   let options = new RequestOptions({ headers: headers });
 
  //console.log(companyDetails);
-    return this.http.post(this.LoginUrl2, companyData, options)
+    return this.http.post(this.updateCompanyUrl, companyData, options)
                     .map(this.extractData)
                     .catch(this.handleError);
 

@@ -14,6 +14,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
+  
     { path: 'menu', component: MenuComponent },
     { path: 'settings', component: SettingsComponent }
   ];
