@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   //loginData: any[];
   email: any;
   password: any;
-
+ emailpattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  
   constructor(private loginService: LoginService, public fb: FormBuilder, private router: Router) {
     // If we navigated to this page, we will have an item available as a nav param
   //this.parameter1 = navParams.get('item');
@@ -35,7 +36,7 @@ ngOnInit() {
 
 }
  public loginForm = this.fb.group({
-     email: ["",Validators.required],
+     email: ["",[Validators.required,Validators.pattern(this.emailpattern)]],
     password: ["",Validators.required]
 });
 

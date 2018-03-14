@@ -19,7 +19,9 @@ export class SettingsService {
   public LoginUrl1 = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public LoginUrl2 = GlobalVariable.BASE_API_URL + 'updateCompany';
 
-
+ public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentList';
+ public addDepartmentUrl =  GlobalVariable.BASE_API_URL + 'addDepartment';
+ public updateDepartmentUrl =  GlobalVariable.BASE_API_URL + 'updateDepartment';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -53,6 +55,67 @@ updateCompany(companyData): Observable<SettingsComponent[]> {
                     .catch(this.handleError);
 
 }
+  
+  
+
+   getDepartment(): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+
+
+    //let companyId = id;
+   console.log("inside service");
+   // let clientDetails = clientData;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+  
+  //console.log(clientDetails);
+    return this.http.get(this.getDepartmentUrl,options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+          
+          
+ 
+  }
+  
+
+  
+//function to add department
+   addDepartment(departmentData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
+
+    //let companyId = id;
+   console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(departmentData));
+    return this.http.post(this.addDepartmentUrl, departmentData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
+  
+// function to update the department
+ updateDepartment(departmentData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
+
+    //let companyId = id;
+   console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(departmentData));
+    return this.http.post(this.updateDepartmentUrl, departmentData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+
 
 
   private extractData(res: Response) {

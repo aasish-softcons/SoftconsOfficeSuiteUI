@@ -41,73 +41,73 @@
 						  <tbody>
 							<tr>
 							  <td class="text-transform">Company Name</td>
-							  <td><input type="text" class="form-control" formControlName="company_name" value="{{companyData[0]['company_name']}}" [(ngModel)]="company_name" placeholder="Company Name" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="company_name" [value]="companyData[0]['company_name']" [(ngModel)]="company_name" placeholder="Company Name"  readonly/></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Contact Person</td>
-							  <td><input type="text" class="form-control" formControlName="contact_person" value="{{companyData[0]['contact_person']}}" [(ngModel)]="contact_person" placeholder="Contact Person" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="contact_person" [value]="companyData[0]['contact_person']" [(ngModel)]="contact_person" placeholder="Contact Person" /></td>
+							 <!-- <td class="text-center"><i class="fa fa-pencil"></i></td> --> 
 							</tr>
 							<tr>
 							  <td class="text-transform">Address</td>
-							  <td><input type="text" class="form-control" formControlName="address" value="{{companyData[0]['address']}}" [(ngModel)]="address" placeholder="Address" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="address" [value]="companyData[0]['address']" [(ngModel)]="address" placeholder="Address" /></td>
+							  <!--  <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Phone Number</td>
-							  <td><input type="text" class="form-control" formControlName="phone_number" value="{{companyData[0]['phone_no']}}" [(ngModel)]="phone_number" placeholder="Phone Number" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="phone_number" [value]="companyData[0]['phone_no']" [(ngModel)]="phone_number" placeholder="Phone Number" /></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Email Id</td>
-							  <td><input type="text" class="form-control" formControlName="email_id" value="{{companyData[0]['email_id']}}" [(ngModel)]="email_id" placeholder="Email Id" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="email_id" [value]="companyData[0]['email_id']" [(ngModel)]="email_id" placeholder="Email Id" readonly/></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Subscription Date</td>
-							  <td><input type="text" class="form-control" formControlName="subscription_date" value="{{companyData[0]['subscription_date']}}" [(ngModel)]="subscription_date" placeholder="Subscription Date" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="subscription_date" [value]="companyData[0]['subscription_date']" [(ngModel)]="subscription_date" placeholder="Subscription Date" readonly /></td>
+							  <!--  <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Expiry Date</td>
-							  <td><input type="text" class="form-control" formControlName="expiry_date" value="{{companyData[0]['expiry_date']}}" [(ngModel)]="expiry_date" placeholder="Expiry Date" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="expiry_date" [value]="companyData[0]['expiry_date']" [(ngModel)]="expiry_date" placeholder="Expiry Date" readonly /></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Asset Limit</td>
-							  <td><input type="text" class="form-control" formControlName="asset_limit" value="{{companyData[0]['asset_limit']}}" [(ngModel)]="asset_limit" placeholder="Asset Limit" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="asset_limit" [value]="companyData[0]['asset_limit']" [(ngModel)]="asset_limit" placeholder="Asset Limit" readonly /></td>
+							  <!--  <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">User Limit</td>
-							  <td><input type="text" class="form-control" formControlName="user_limit" value="{{companyData[0]['user_limit']}}" [(ngModel)]="user_limit" placeholder="User Limit" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="user_limit" [value]="companyData[0]['user_limit']" [(ngModel)]="user_limit" placeholder="User Limit" readonly /></td>
+							  <!--  <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">License Version</td>
-							  <td><input type="text" class="form-control" formControlName="license_version" value="{{companyData[0]['licence_version']}}" [(ngModel)]="license_version" placeholder="License Version" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="license_version" [value]="companyData[0]['licence_version']" [(ngModel)]="license_version" placeholder="License Version" readonly /></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">License Number</td>
-							  <td><input type="text" class="form-control" formControlName="license_number" value="{{companyData[0]['licence_num']}}" [(ngModel)]="license_number" placeholder="License Number" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="license_number" [value]="companyData[0]['licence_num']" [(ngModel)]="license_number" placeholder="License Number" readonly/></td>
+							 <!--  <td class="text-center"><i class="fa fa-pencil"></i></td> -->
 							</tr>
 							<tr>
 							  <td class="text-transform">License Count</td>
-							  <td><input type="text" class="form-control" formControlName="license_count" value="{{companyData[0]['num_of_licence']}}" [(ngModel)]="license_count" placeholder="License Count" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="license_count" [value]="companyData[0]['num_of_licence']" [(ngModel)]="license_count" placeholder="License Count" readonly/></td>
+							  <!-- - <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Version</td>
-							  <td><input type="text" class="form-control" formControlName="version" value="{{companyData[0]['version']}}" [(ngModel)]="version" placeholder="Version" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="version" [value]="companyData[0]['version']" [(ngModel)]="version" placeholder="Version"  readonly/></td>
+							 <!--   <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>
 							<tr>
 							  <td class="text-transform">Amount Paid (&#8377;)</td>
-							  <td><input type="text" class="form-control" formControlName="amount_paid" value="{{companyData[0]['amount_paid']}}" [(ngModel)]="amount_paid" placeholder="Amount Paid" /></td>
-							  <td class="text-center"><i class="fa fa-pencil"></i></td>
+							  <td><input type="text" class="form-control" formControlName="amount_paid" [value]="companyData[0]['amount_paid']" [(ngModel)]="amount_paid" placeholder="Amount Paid" readonly/></td>
+							  <!--  <td class="text-center"><i class="fa fa-pencil"></i></td>-->
 							</tr>						
 						  </tbody>
 						</table>
@@ -131,42 +131,55 @@
 						  <th>Action</th>
 						</tr>
 					  </thead>
-					  <tbody>
-						<tr>
-						  <td>Tiger Nixon</td>
-						  <td>System Architect</td>
-						  <td>Edinburgh</td>
-						  <td>61</td>
-						  <td>2011/04/25</td>
-						  <td><i class="fa fa-pencil"></i></td>
+					  	  <tbody>
+						<tr *ngFor=" let department of departmentData;let row_no = index">
+						<td *ngIf="row_no === editRowId">
+                       <input type="text" [(ngModel)]="department.department_name" />
+                   </td>
+                   <td *ngIf="row_no !== editRowId"   >
+                     {{department.department_name}}
+                              </td>
+                     <td *ngIf="row_no === editRowId">
+                       <input type="text" [(ngModel)]="department.department_head" />
+                   </td>
+                   <td *ngIf="row_no !== editRowId"   >
+                     {{department.department_head}}
+                              </td>
+                     <td *ngIf="row_no === editRowId">
+                       <input type="text" [(ngModel)]="department.department_location" />
+                   </td>
+                   <td *ngIf="row_no !== editRowId"   >
+                     {{department.department_location}}
+                              </td>
+                      <td *ngIf="row_no === editRowId">
+                       <input type="text" [(ngModel)]="department.department_function" />
+                   </td>
+                   <td *ngIf="row_no !== editRowId" >
+                     {{department.department_function}}
+                              </td>
+                     <td *ngIf="row_no === editRowId">
+                       <input type="number" [(ngModel)]="department.department_members" />
+                   </td>
+                   <td *ngIf="row_no !== editRowId" >
+                     {{department.department_members}}
+                              </td>
+						 <td *ngIf="row_no !== editRowId"> <a (click)="editDepartment(row_no)" ><i class="fa fa-pencil"></i></a></td>
+						<td *ngIf="row_no === editRowId"><button (click)="updateDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)">Update</button></td>		
 						</tr>
+						
 						<tr>
-						  <td>Sonya Frost</td>
-						  <td>Software Engineer</td>
-						  <td>Edinburgh</td>
-						  <td>23</td>
-						  <td>2008/12/13</td>
-						  <td><i class="fa fa-pencil"></i></td>
-						</tr>
-						<tr>
-						  <td>Jena Gaines</td>
-						  <td>Office Manager</td>
-						  <td>London</td>
-						  <td>30</td>
-						  <td>2008/12/19</td>
-						  <td><i class="fa fa-pencil"></i></td>
-						</tr>
-						<tr>
-						  <td><input type="text" name="department_name" /></td>
-						  <td><input type="text" name="head_of_the_department" /></td>
-						  <td><input type="text" name="location" /></td>
-						  <td><input type="text" name="function" /></td>
-						  <td><input type="text" name="members" /></td>
-						  <td><i class="fa fa-plus"></i></td>
+						  <td><input type="text" [(ngModel)]="department_name" /></td>
+						  <td><input type="text" [(ngModel)]="head_of_the_department" /></td>
+						  <td><input type="text" [(ngModel)]="location" /></td>
+						  <td><input type="text" [(ngModel)]="functions" /></td>
+						  <td><input type="number" [(ngModel)]="members" pattern="[0-9]+"/></td>
+						<td> <a (click)="addDepartment()" ><i class="fa fa-plus"></i></a></td>
 						</tr>						
 					  </tbody>
 					</table>
-				  </div>				  
+				  </div>
+				  <div [hidden]="!showalertsuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{departmentInfo}}</div>			
+				   <div *ngIf="showalertfail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{departmentInfo}}</div>			  
                 </div>
                 <div class="tab-pane" id="settings3">
  				  <!--<form>			  
