@@ -37,7 +37,7 @@ ngOnInit() {
 }
  public loginForm = this.fb.group({
      email: ["", [Validators.required, Validators.pattern(this.emailpattern)]],
-    password: ["", Validators.required]
+    password: ["",[Validators.required,Validators.minLength(6)]]
 });
 
   doLogin() {
