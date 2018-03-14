@@ -66,20 +66,20 @@ export class SettingsComponent implements OnInit {
   constructor(private settingsService: SettingsService, public fb: FormBuilder, private router: Router) { }
 
  public companyForm = this.fb.group({
-    // company_name: ["", Validators.required],
+     company_name: ["", Validators.required],
      contact_person: ["", Validators.required],
      address: ["", Validators.required],
      phone_number: ["", Validators.required],
-    // email_id: ["", Validators.required],
-    // subscription_date: ["", Validators.required],
-     //expiry_date: ["", Validators.required],
-    // asset_limit: ["", Validators.required],
-   //  user_limit: ["", Validators.required],
-    // license_version: ["", Validators.required],
-     //license_number: ["", Validators.required],
-    // license_count: ["", Validators.required],
-    // version: ["", Validators.required],
-    // amount_paid: ["", Validators.required]
+     email_id: ["", Validators.required],
+    subscription_date: ["", Validators.required],
+     expiry_date: ["", Validators.required],
+     asset_limit: ["", Validators.required],
+    user_limit: ["", Validators.required],
+     license_version: ["", Validators.required],
+     license_number: ["", Validators.required],
+    license_count: ["", Validators.required],
+    version: ["", Validators.required],
+    amount_paid: ["", Validators.required]
 });
 
    public projectForm = this.fb.group({
