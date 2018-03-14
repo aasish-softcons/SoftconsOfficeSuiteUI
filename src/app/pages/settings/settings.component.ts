@@ -44,6 +44,7 @@ export class SettingsComponent implements OnInit {
   companyInfo:string;
   companyAlertSuccess=false;
   companyAlertFail=false;
+  sprintDays:number;
   
   departmentData:any[];
   department:SettingsComponent[];
@@ -117,7 +118,9 @@ export class SettingsComponent implements OnInit {
                 //localStorage.setItem('company', JSON.stringify(company));
                 //this.currentUser= JSON.parse(localStorage.getItem("user"));
                 //console.log(this.currentUser);
+               
                 this.companyData=company;
+                 this.sprintDays=this.companyData[0].sprint_days;
                 console.log(this.companyData);
               }
               else{
@@ -149,7 +152,7 @@ console.log(this.companyForm.value['contact_person']);
    //console.log(this.companyForm.value['contact_person']);
   this.currentUser = JSON.parse(localStorage.getItem("user"));
 //let companyData = { CompanyInfo:JSON.stringify({id:1,contact_person:"Shwetha", address:"Sullia",phone_no:"9481015738",email_id:"shwetha.n@softcons.net",last_updated:"2018-02-16 00:00:00",updated_by:"Shwetha",sprint_days:15,subscription_date:"2018-02-16 00:00:00",company_name:"Shwetha Innovations",nominal_flag:1 }) };
-let companyData = { CompanyInfo: JSON.stringify({id: 1, contact_person: this.companyForm.value['contact_person'], address: this.companyForm.value['address'], phone_no: this.companyForm.value['phone_number'], email_id: this.companyForm.value['email_id'], last_updated: '2018-02-16 00:00:00', updated_by: "Shwetha", sprint_days: 15, subscription_date: '2018-02-16 00:00:00', company_name: this.companyForm.value['company_name'], nominal_flag: 1 }) };
+let companyData = { CompanyInfo: JSON.stringify({id: this.companyId, contact_person: this.companyForm.value['contact_person'], address: this.companyForm.value['address'], phone_no: this.companyForm.value['phone_number'], email_id: this.companyForm.value['email_id'], last_updated: '', updated_by: this.userId, sprint_days: this.sprintDays, subscription_date: '', company_name: this.companyForm.value['company_name'], nominal_flag: 1 }) };
 console.log(companyData);
 
       this.settingsService.updateCompany(companyData)
@@ -219,8 +222,9 @@ getDepartment(){
 addDepartment() {
    this.showalertsuccess=false;
   this.showalertfail=false;
-let departmentData={ DepartmentInfo:JSON.stringify({company_id:this.companyId,department_name:this. department_name,department_head:this.head_of_the_department,department_location:this.location,department_function:this.functions,department_members:this.members,date_created:this.date,created_by:this.userId,start_date:this.date,end_date:this.date}) };
+let departmentData={ DepartmentInfo:JSON.stringify({company_id:this.companyId,department_name:this.department_name,department_head:this.head_of_the_department,department_location:this.location,department_function:this.functions,department_members:this.members,date_created:this.date,created_by:this.userId,start_date:this.date,end_date:this.date}) };
  console.log(departmentData);
+  console.log(this.department_name);
   if(this.department_name==""||this.head_of_the_department==""||this.location==""||this.functions==""||this.members==null){
   alert("Please enter all the fields");
   
@@ -278,7 +282,7 @@ editDepartment(row_no){
 updateDepartment(id,name,head,location,functions,member){
    
   this.departmentId=id;
-  let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:this.date,updated_by:this.userId,start_date:this.date,end_date:this.date}) };
+  let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:'',end_date:''}) };
  console.log(departmentData);
    if(name==""||head==""||location==""||functions==""||member==null){
   alert("Please enter all the fields");

@@ -135,11 +135,11 @@
 					  </thead>
 					  	  <tbody>
 					  	  <tr>
-						  <td><input type="text" [(ngModel)]="department_name" /></td>
-						  <td><input type="text" [(ngModel)]="head_of_the_department" /></td>
-						  <td><input type="text" [(ngModel)]="location" /></td>
-						  <td><input type="text" [(ngModel)]="functions" /></td>
-						  <td><input type="number" [(ngModel)]="members" pattern="[0-9]+"/></td>
+						  <td><input type="text" [(ngModel)]="department_name" name="department_name" /></td>
+						  <td><input type="text" [(ngModel)]="head_of_the_department" name="head_of_the_department" /></td>
+						  <td><input type="text" [(ngModel)]="location" name="location" /></td>
+						  <td><input type="text" [(ngModel)]="functions" name="functions"/></td>
+						  <td><input type="number" [(ngModel)]="members" name="members" /></td>
 						<td> <a (click)="addDepartment()" ><i class="fa fa-plus"></i></a></td>
 						</tr>	
 						<tr *ngFor=" let department of departmentData;let row_no = index">
