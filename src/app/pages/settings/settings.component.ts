@@ -4,6 +4,7 @@ import { SettingsService } from '../settings/settings.service';
 import { MenuComponent } from '../menu/menu.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+  import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -15,6 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class SettingsComponent implements OnInit {
    disabled=false;
    date=new Date();
+  yesterday = new Date();
+  yesterdaysFormattedDate;
+  todaydayFormattedDate;
+  
   isDisplay = true;
   errorMessage: string;
   name: string;
@@ -138,9 +143,33 @@ export class SettingsComponent implements OnInit {
     
     this.getDepartment();
      
-  console.log(this.companyId);
+ // console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
-   
+    //getting previous day date
+   this.yesterday.setDate(this.yesterday.getDate()-1);
+    this.date.setDate(this.date.getDate()+1);
+     console.log(this.yesterday);
+   //converting yesterday to YYYY-MM-dd HH:mm:ss format 
+   let yesterdaysday = this.yesterday.getDate();
+let yesterdaysmonthIndex = this.yesterday.getMonth();
+let yesterdaysyear =  this.yesterday.getFullYear();
+let yesterdaysminutes =  this.yesterday.getMinutes();
+let yesterdayshours =  this.yesterday.getHours();
+let yesterdaysseconds =  this.yesterday.getSeconds();
+// this.yesterdaysFormattedDate = yesterdaysday+"-"+(yesterdaysmonthIndex+1)+"-"+yesterdaysyear+" "+ yesterdayshours+":"+yesterdaysminutes+":"+yesterdaysseconds;
+  this.yesterdaysFormattedDate = yesterdaysyear+"-"+(yesterdaysmonthIndex+1)+"-"+yesterdaysday+" "+ yesterdayshours+":"+yesterdaysminutes+":"+yesterdaysseconds;
+  //converting today to YYYY-MM-dd HH:mm:ss format  
+      let todayday = this.date.getDate();
+let todaydaymonthIndex = this.date.getMonth();
+let todaydayyear =  this.date.getFullYear();
+let todaysday =  this.date.getMinutes();
+let todaydayhours =  this.date.getHours();
+let todaydayseconds =  this.date.getSeconds();
+
+
+  this.todaydayFormattedDate = todaydayyear+"-"+(todaydaymonthIndex+1)+"-"+todayday+" "+ todaysday+":"+todaydayhours+":"+todaydayseconds;
+    
+   //console.log(myFormattedDate);
   }
 
 updateCompany(event) {
@@ -191,12 +220,13 @@ console.log(companyData);
 
 // function to get department list
 getDepartment(){
- console.log("1st inside component");
+ console.log("get deparment component");
+  console.log(this.companyId);
   this.settingsService.getDepartment()
                      .subscribe(
                      department => {
            
-            console.log("inside component");
+            console.log("inside get deparment component service call");
               console.log(JSON.stringify(department));
               
               if(department)
@@ -222,7 +252,7 @@ getDepartment(){
 addDepartment() {
    this.showalertsuccess=false;
   this.showalertfail=false;
-let departmentData={ DepartmentInfo:JSON.stringify({company_id:this.companyId,department_name:this.department_name,department_head:this.head_of_the_department,department_location:this.location,department_function:this.functions,department_members:this.members,date_created:this.date,created_by:this.userId,start_date:this.date,end_date:this.date}) };
+let departmentData={ DepartmentInfo:JSON.stringify({company_id:this.companyId,department_name:this.department_name,department_head:this.head_of_the_department,department_location:this.location,department_function:this.functions,department_members:this.members,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
  console.log(departmentData);
   console.log(this.department_name);
   if(this.department_name==""||this.head_of_the_department==""||this.location==""||this.functions==""||this.members==null){
@@ -282,7 +312,7 @@ editDepartment(row_no){
 updateDepartment(id,name,head,location,functions,member){
    
   this.departmentId=id;
-  let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:'',end_date:''}) };
+  let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
  console.log(departmentData);
    if(name==""||head==""||location==""||functions==""||member==null){
   alert("Please enter all the fields");
@@ -330,7 +360,7 @@ updateDepartment(id,name,head,location,functions,member){
       
  deleteDepartment(id,name,head,location,functions,member){
    this.departmentId=id;
- let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:'',end_date:''}) };
+ let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
    
    this.settingsService.deleteDepartment(departmentData)
                      .subscribe(
@@ -367,7 +397,7 @@ updateDepartment(id,name,head,location,functions,member){
                },
                       error =>  this.errorMessage = <any>error);  
   }
- }
+
 
 
 

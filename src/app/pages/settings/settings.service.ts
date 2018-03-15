@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import { SettingsComponent } from '../settings/settings.component';
 import { GlobalVariable } from '../../global';
 
+
 @Injectable()
 export class SettingsService {
   selectedItem: any;
@@ -19,7 +20,7 @@ export class SettingsService {
   public getCompanyUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/';
   public updateCompanyUrl = GlobalVariable.BASE_API_URL + 'updateCompany';
 
- public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentList';
+ public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentByCId/'+1;
  public addDepartmentUrl =  GlobalVariable.BASE_API_URL + 'addDepartment';
  public updateDepartmentUrl =  GlobalVariable.BASE_API_URL + 'updateDepartment';
  public deleteDepartmentUrl =  GlobalVariable.BASE_API_URL + 'deleteDepartment';
@@ -61,16 +62,16 @@ updateCompany(companyData): Observable<SettingsComponent[]> {
 
    getDepartment(): Observable<SettingsComponent[]> {
  //let companyId =localStorage.getItem("companyID")
-
+console.log(this.getDepartmentUrl)
 
     //let companyId = id;
-   console.log("inside service");
+   //console.log("inside  get department service" +companyId);
    // let clientDetails = clientData;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
   let options = new RequestOptions({ headers: headers });
   
   //console.log(clientDetails);
-    return this.http.get(this.getDepartmentUrl,options)
+    return this.http.get(this.getDepartmentUrl , options)
                     .map(this.extractData)
                     .catch(this.handleError);
           
