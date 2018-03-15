@@ -20,10 +20,13 @@ export class SettingsService {
   public getCompanyUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/';
   public updateCompanyUrl = GlobalVariable.BASE_API_URL + 'updateCompany';
 
- public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentByCId/'+1;
+ public getDepartmentUrl =  GlobalVariable.BASE_API_URL + 'getAllDepartmentByCId/';
  public addDepartmentUrl =  GlobalVariable.BASE_API_URL + 'addDepartment';
  public updateDepartmentUrl =  GlobalVariable.BASE_API_URL + 'updateDepartment';
  public deleteDepartmentUrl =  GlobalVariable.BASE_API_URL + 'deleteDepartment';
+  
+   public getClientUrl =GlobalVariable.BASE_API_URL +'getAllClientByCId';
+   public addClientUrl =  GlobalVariable.BASE_API_URL + 'addClients';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -60,7 +63,7 @@ updateCompany(companyData): Observable<SettingsComponent[]> {
   
   
 
-   getDepartment(): Observable<SettingsComponent[]> {
+   getDepartment(companyId): Observable<SettingsComponent[]> {
  //let companyId =localStorage.getItem("companyID")
 console.log(this.getDepartmentUrl)
 
@@ -71,7 +74,7 @@ console.log(this.getDepartmentUrl)
   let options = new RequestOptions({ headers: headers });
   
   //console.log(clientDetails);
-    return this.http.get(this.getDepartmentUrl , options)
+    return this.http.get(this.getDepartmentUrl+companyId , options)
                     .map(this.extractData)
                     .catch(this.handleError);
           
@@ -138,9 +141,49 @@ console.log(this.getDepartmentUrl)
                     .catch(this.handleError);
 
   }
+  
+  
+  
+ //function to get client list
+   getClient(companyId): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+// console.log(this.getDepartmentUrl)
+
+    //let companyId = id;
+   console.log("inside  get client service" +companyId);
+   // let clientDetails = clientData;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+  
+  //console.log(clientDetails);
+    return this.http.get(this.getClientUrl+companyId , options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+          
+          
+ 
+  }
 
 
+//function to add client/customer
+addClient(clientData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
 
+    //let companyId = id;
+   console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(clientData));
+    return this.http.post(this.addClientUrl, clientData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }  
+  
+  
   private extractData(res: Response) {
     let body = res.json();
   //alert(JSON.stringify(body));

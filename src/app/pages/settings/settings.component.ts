@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
   yesterday = new Date();
   yesterdaysFormattedDate;
   todaydayFormattedDate;
+  emailpattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   
   isDisplay = true;
   errorMessage: string;
@@ -63,6 +64,21 @@ export class SettingsComponent implements OnInit {
   departmentInfo:string;
    showalertsuccess=false;
   showalertfail=false;
+  
+  client:SettingsComponent[];
+  customerName:string;
+  clientUrl:string;
+  clientPan:string;
+  clientGstn:string;
+  clientRegisteredAddress:string;
+  clientMailingAddress:string;
+  clientOwner:string;
+  clientContactperson:string;
+  clientPhone:number;
+  clientEmail:string;
+  clientInfo:string;
+  showClientSuccess=false;
+  showClientFail=false;
 
   projectData: any[];
   customer_name: any;
@@ -105,6 +121,22 @@ export class SettingsComponent implements OnInit {
      billing_type: ["", Validators.required],
      team_name: ["", Validators.required]
 });
+  
+   public clientForm = this.fb.group({
+     client_company_name: ["", Validators.required],
+     
+    client_url: ["", Validators.required],
+     client_pan: ["",Validators.required],
+     client_gstn: ["", Validators.required],
+    registered_address: ["", Validators.required],
+     mailing_addresss: ["", Validators.required],
+     client_owner: ["", Validators.required],
+    contact_person: ["", Validators.required],
+    phone_number: ["", Validators.required],
+    email_address: ["", [Validators.required,Validators.pattern(this.emailpattern)]]
+}); 
+  
+  
 
   getCompany() {
  console.log("inside get company");
@@ -142,6 +174,7 @@ export class SettingsComponent implements OnInit {
      this.getCompany();
     
     this.getDepartment();
+    this.getClient();
      
  // console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
@@ -222,7 +255,7 @@ console.log(companyData);
 getDepartment(){
  console.log("get deparment component");
   console.log(this.companyId);
-  this.settingsService.getDepartment()
+  this.settingsService.getDepartment(this.companyId)
                      .subscribe(
                      department => {
            
@@ -245,6 +278,8 @@ getDepartment(){
                },
                        error =>  this.errorMessage = <any>error);
  }
+  
+  
 
 
 
@@ -398,8 +433,90 @@ updateDepartment(id,name,head,location,functions,member){
                       error =>  this.errorMessage = <any>error);  
   }
 
+  
+  
+  getClient(){
+    console.log("get client component");
+  console.log(this.companyId);
+  this.settingsService.getClient(this.companyId)
+                     .subscribe(
+                     client => {
+           
+            console.log("inside get client component service call");
+              console.log(JSON.stringify(client));
+              
+              if(client)
+              
+              {
+                
+             
+              
+               
+              }
+              else{
+              
+                            
+              }
+              
+               },
+                       error =>  this.errorMessage = <any>error);
+  
+  }
+ 
+ 
+ addClient(){
+ this.showalertsuccess=false;
+  this.showalertfail=false;
+let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,company_id:this.companyId,website_url:this.clientUrl,pan:this.clientPan,gstn:this.clientGstn,registered_address:this.clientRegisteredAddress,managing_director:this.clientOwner,mailing_address:this.clientMailingAddress,contact_person:this.clientContactperson,phone_number:this.clientPhone,email_id:this.clientEmail,status:1,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+ 
+ console.log(clientData);
+  console.log(this.department_name);
 
+     this.settingsService.addClient(clientData)
+        
+                     .subscribe(
+                     client => {
+            console.log("inside component");
+              console.log(JSON.stringify(client));
+              
+              if(client["message"]==="Clients are added Successfully")
+              
+              {
+              this.showClientSuccess=true;
+           this.clientInfo="Customer added successfully";
+                
+               
+               
+                 setTimeout(function() {
+       this.showClientSuccess = false;
+       
+   }.bind(this), 3000)
+                
+                
+              }
+              else{
+               this.showClientFail=true;
+                      this.clientInfo="Error occured while adding customer";    
+                setTimeout(function() {
+       this.showClientFail = false;
+       
+   }.bind(this), 3000)  
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  
 
+     
+ 
+ }
+
+  
+ // function to reset client form
+  resetClientForm(){
+  
+  this.clientForm.reset();
+  }
 
 
 

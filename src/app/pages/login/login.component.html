@@ -11,7 +11,7 @@
       <!-- <button class="btn btn-primary btn-quirk btn-fb btn-block">Connect with Facebook</button> -->
       <!-- <div class="or">or</div> -->
       <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
-        <div class="form-group mb10" [ngClass]="{'has-error':!loginForm.controls['email'].valid}">
+        <div class="form-group mb10" [ngClass]="{'has-error':!loginForm.controls['email'].valid }">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input type="text" class="form-control" formControlName="email" [(ngModel)]="email" placeholder="Enter Username" >

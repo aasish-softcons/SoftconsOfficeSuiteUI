@@ -1569,41 +1569,45 @@
 				  <!-- Tab panes -->
 				  <div class="tab-content mb20">
 					<div class="tab-pane active" id="popular5">
-						<form>			  				  
+						<form [formGroup]="clientForm" (ngSubmit)="addClient()">			  				  
 						  <div class="form-group">
-							<input type="text" placeholder="Customer Name" class="form-control">
+							<input type="text" placeholder="Customer Name" formControlName="client_company_name" [(ngModel)]="customerName" name="customerName" class="form-control">
 						  </div>	
 						  <div class="form-group">
-							<input type="url" placeholder="Website URL" class="form-control">
+							<input type="url" placeholder="Website URL" formControlName="client_url" [(ngModel)]="clientUrl" name="websiteUrl"  class="form-control">
 						  </div> 
 						  <div class="form-group">
-							<input type="text" placeholder="PAN" class="form-control">
+							<input type="text" placeholder="PAN" formControlName="client_pan"  class="form-control" [(ngModel)]="clientPan" name="clientPan" >
 						  </div>						  
 						  <div class="form-group">
-							<input type="text" placeholder="GSTN" class="form-control">
+							<input type="text" placeholder="GSTN" formControlName="client_gstn" class="form-control" [(ngModel)]="clientGstn" name="clientGstn">
 						  </div>	
 						  <div class="form-group">
-							<input type="text" placeholder="Registered Address" class="form-control">
+							<input type="text" placeholder="Registered Address" formControlName="registered_address" class="form-control" [(ngModel)]="clientRegisteredAddress" name="clientRegisteredAddress">
 						  </div>
 						  <div class="form-group">
-							<input type="text" placeholder="Mailing Address" class="form-control">
+							<input type="text" placeholder="Mailing Address" formControlName="mailing_addresss" class="form-control" [(ngModel)]="clientMailingAddress" name="clientMailingAddress">
 						  </div>  
 						  <div class="form-group">
-							<input type="text" placeholder="Managing Director/Owner" class="form-control">
+							<input type="text" placeholder="Managing Director/Owner" formControlName="client_owner" class="form-control" [(ngModel)]="clientOwner" name="clientOwner">
 						  </div>
 						  <div class="form-group">
-							<input type="text" placeholder="Contact Person" class="form-control">
+							<input type="text" placeholder="Contact Person" formControlName="contact_person" class="form-control" [(ngModel)]="clientContactperson" name="clientContactperson">
 						  </div>  					  
 						  <div class="form-group">
-							<input type="text" placeholder="Phone Number" class="form-control">
-						  </div>  					  
+							<input type="number" placeholder="Phone Number" formControlName="phone_number" class="form-control" [(ngModel)]="clientPhone" name="clientPhone">
+						  </div>  
+						 <div class="form-group nomargin" [ngClass]="{'has-error':!clientForm.controls['email_address'].valid}"><div class="form-group">
+							<input type="text" placeholder="Email Address" formControlName="email_address" class="form-control" [(ngModel)]="clientEmail" name="clientEmail">
+						 
+						  </div> </div>					  
+						  					  
 						  <div class="form-group">
-							<input type="text" placeholder="Email Address" class="form-control">
-						  </div> 					  
-						  <div class="form-group">
-							<input type="submit" name="Update" value="Update" class="btn btn-primary" />
-							<input type="button" name="Cancel" value="Cancel" class="btn btn-danger" />
-						  </div>					  
+							<input type="submit" name="Save" value="Save" [disabled]="!clientForm.valid" class="btn btn-primary" />
+							<input type="button" name="Cancel"  (click)="resetClientForm() " value="Cancel" class="btn btn-danger" />
+						  </div>	
+						  	 <div [hidden]="!showClientSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
+				   <div [hidden]="!showClientFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>					  
 					    </form>  					  
 					</div>
 					<div class="tab-pane" id="recent5">
