@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   import { DatePipe } from '@angular/common';
 
 
+
 @Component({
   selector: 'settings',
   templateUrl: './settings.component.html',
@@ -19,7 +20,7 @@ export class SettingsComponent implements OnInit {
   yesterday = new Date();
   yesterdaysFormattedDate;
   todaydayFormattedDate;
-  emailpattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  emailpattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/";
   
   isDisplay = true;
   errorMessage: string;
@@ -79,6 +80,24 @@ export class SettingsComponent implements OnInit {
   clientInfo:string;
   showClientSuccess=false;
   showClientFail=false;
+  clientData:any[];
+  clientId:number;
+  updateClientSuccess=false;
+  updateClientFail=false;
+  deleteClientSuccess=false;
+  deleteClientFail=false;
+  clientEditId:any;
+  client_name:string;
+  client_url:string;
+  client_pan:string;
+  client_gstn:string;
+  client_registered_address:string;
+  client_mailing_address:string;
+  client_managing_director:string;
+  client_contact_person:string;
+  client_phone_number:string;
+  client_email_id:string;
+  clientUpdateDisabled=false;
 
   projectData: any[];
   customer_name: any;
@@ -449,7 +468,7 @@ updateDepartment(id,name,head,location,functions,member){
               
               {
                 
-             
+             this.clientData=client;
               
                
               }
@@ -465,8 +484,7 @@ updateDepartment(id,name,head,location,functions,member){
  
  
  addClient(){
- this.showalertsuccess=false;
-  this.showalertfail=false;
+
 let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,company_id:this.companyId,website_url:this.clientUrl,pan:this.clientPan,gstn:this.clientGstn,registered_address:this.clientRegisteredAddress,managing_director:this.clientOwner,mailing_address:this.clientMailingAddress,contact_person:this.clientContactperson,phone_number:this.clientPhone,email_id:this.clientEmail,status:1,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
  
  console.log(clientData);
@@ -484,6 +502,7 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
               {
               this.showClientSuccess=true;
            this.clientInfo="Customer added successfully";
+                this.getClient();
                 
                
                
@@ -517,6 +536,159 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
   
   this.clientForm.reset();
   }
+  
+  
+  // function when user clicks edit client button
+  editClient(client_no,clients){
+  this.clientEditId=client_no;
+   this.client_name=clients.client_name;
+    this.client_url=clients.website_url;
+    this.client_pan=clients.pan;
+    this.client_gstn=clients.gstn;
+    this.client_registered_address=clients.registered_address;
+    this.client_managing_director=clients.managing_director;
+    this.client_mailing_address=clients.mailing_address;
+    this.client_contact_person=clients.contact_person;
+    this.client_phone_number=clients.phone_number;
+    this.client_email_id=clients.email_id;
+    
+    
+  
+
+}
+  
+  
+  // function to update client
+  
+  updateClient(clients){
+  console.log(clients);
+   if(this.client_name===''||this.client_url===''||this.client_pan===''||this.client_gstn===''||this.client_registered_address===''||this.client_managing_director===''||this.client_mailing_address===''||this.client_contact_person===''||this.client_phone_number===null||this.client_email_id==='')
+     {
+ alert("Please enter all fields");
+   }
+    else if(!/[0-9]{10}/.test(this.client_phone_number)){
+    alert("Please enter valid Phone number");
+   }
+    else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/.test(this.client_email_id)) {
+  alert("Please enter valid EmailId");
+}
+    
+    else{
+   let clientData={ ClientInfo:JSON.stringify({id:clients.id,client_name:this.client_name,company_id:clients.company_id,website_url:this.client_url,pan: this.client_pan,gstn:this.client_gstn,registered_address:this.client_registered_address,managing_director: this.client_managing_director,mailing_address:this.client_mailing_address,contact_person:this.client_contact_person,phone_number:this.client_phone_number,email_id:this.client_email_id,status:1,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+     console.log(clientData);
+   
+   this.settingsService.updateClient(clientData)
+                     .subscribe(
+                     client => {
+            console.log("inside component");
+               console.log(JSON.stringify(client));
+               
+          
+              if(client["message"]=="You are successfully updated")
+              
+              {
+               
+             this.updateClientSuccess=true;
+               this.clientInfo="Client updated successfully";
+                 this.getClient();
+               
+                
+                setTimeout(function() {
+       this.updateClientSuccess = false;
+        this.clientEditId='';
+   }.bind(this), 3000)
+              }
+              else{
+              
+                   this.updateClientFail=true;
+               this.clientInfo="Client update failed";      
+                setTimeout(function() {
+          this.updateClientFail = false;
+        this.clientEditId='';
+         }.bind(this), 3000) 
+                    
+              }
+               
+               },
+                      error =>  this.errorMessage = <any>error);  
+   }
+  
+  }
+
+  
+  // function to delete client
+  deleteClient(clients){
+ console.log(clients);
+ let clientData={ ClientInfo:JSON.stringify({id:clients.id,client_name:clients.client_name,company_id:clients.company_id,website_url:clients.website_url,pan:clients.pan,gstn:clients.gstn,registered_address:clients.registered_address,managing_director:clients.managing_director,mailing_address:clients.mailing_address,contact_person:clients.contact_person,phone_number:clients.phone_number,email_id:clients.email_id,status:1,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+     console.log(clientData);
+   
+   this.settingsService.deleteClient(clientData)
+                     .subscribe(
+                     client => {
+            console.log("inside component");
+              // console.log(JSON.stringify(client));
+               
+          
+              if(client["message"]=="You are successfully updated")
+              
+              {
+               
+             this.deleteClientSuccess=true;
+               this.clientInfo="Client deleted successfully";
+                 this.getClient();
+               
+                
+                setTimeout(function() {
+       this.deleteClientSuccess = false;
+       
+   }.bind(this), 3000)
+              }
+              else{
+              
+                   this.deleteClientFail=true;
+               this.clientInfo="Client delete failed";      
+                setTimeout(function() {
+          this.deleteClientFail = false;
+       
+         }.bind(this), 3000) 
+                    
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  }
+  
+  
+  // function to get the team list
+  getTeam(){
+    console.log("get team component");
+  console.log(this.companyId);
+  this.settingsService.getTeam(this.companyId)
+                     .subscribe(
+                     team => {
+           
+            console.log("inside get client component service call");
+              console.log(JSON.stringify(team));
+              
+              if(team)
+              
+              {
+                
+            // this.clientData=client;
+              
+               
+              }
+              else{
+              
+                            
+              }
+              
+               },
+                       error =>  this.errorMessage = <any>error);
+  
+  }
+  
+  
 
 
 

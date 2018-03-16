@@ -25,8 +25,14 @@ export class SettingsService {
  public updateDepartmentUrl =  GlobalVariable.BASE_API_URL + 'updateDepartment';
  public deleteDepartmentUrl =  GlobalVariable.BASE_API_URL + 'deleteDepartment';
   
-   public getClientUrl =GlobalVariable.BASE_API_URL +'getAllClientByCId';
+   public getClientUrl =  GlobalVariable.BASE_API_URL +'getAllClientByCId/';
    public addClientUrl =  GlobalVariable.BASE_API_URL + 'addClients';
+   public deleteClientUrl =  GlobalVariable.BASE_API_URL + 'deleteClient';
+   public updateClientUrl =  GlobalVariable.BASE_API_URL + 'updateClients';
+  
+  public getTeamUrl =  GlobalVariable.BASE_API_URL +'getAllTeamByCId/';
+  public addTeamUrl =  GlobalVariable.BASE_API_URL + 'addTeams';
+  public updateTeamUrl =  GlobalVariable.BASE_API_URL + 'updateTeam';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -147,7 +153,7 @@ console.log(this.getDepartmentUrl)
  //function to get client list
    getClient(companyId): Observable<SettingsComponent[]> {
  //let companyId =localStorage.getItem("companyID")
-// console.log(this.getDepartmentUrl)
+console.log(this.getDepartmentUrl)
 
     //let companyId = id;
    console.log("inside  get client service" +companyId);
@@ -182,6 +188,120 @@ addClient(clientData): Observable<SettingsComponent[]> {
                     .catch(this.handleError);
 
   }  
+  
+  // function to update client
+   updateClient(clientData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
+
+    //let companyId = id;
+   //console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ //console.log("anjana"+ JSON.stringify(clientData));
+    return this.http.post(this.updateClientUrl, clientData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
+  
+  // function to delete client
+  
+  deleteClient(clientData): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+  
+
+    //let companyId = id;
+   //console.log("inside service");
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ //console.log("anjana"+ JSON.stringify(clientData));
+    return this.http.post(this.deleteClientUrl, clientData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
+  
+  
+  //function to get team by company Id
+  
+   getTeam(companyId): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+console.log(this.getDepartmentUrl)
+
+    //let companyId = id;
+   //console.log("inside  get department service" +companyId);
+   // let clientDetails = clientData;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+  
+  //console.log(clientDetails);
+    return this.http.get(this.getTeamUrl+companyId , options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+          
+          
+ 
+  }
+  
+  
+  // function to add team 
+ 
+ addTeam(teamData): Observable<SettingsComponent[]> {
+
+     
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(teamData));
+    return this.http.post(this.addTeamUrl, teamData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }  
+  
+  
+  
+  
+  // function to update the team
+ updateTeam(teamData): Observable<SettingsComponent[]> {
+ 
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(teamData));
+    return this.http.post(this.updateTeamUrl, teamData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
+  
+  //function to delete the team
+  
+   
+  //function to delete department
+
+ deleteTeam(teamData): Observable<SettingsComponent[]> {
+
+    
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(teamData));
+    return this.http.post(this.deleteDepartmentUrl, teamData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }
+  
   
   
   private extractData(res: Response) {

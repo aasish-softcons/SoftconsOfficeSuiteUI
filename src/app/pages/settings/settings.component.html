@@ -1,3 +1,4 @@
+    
           <h4 class="panel-title mb5">Settings</h4>
           <!-- <p class="mb15">A dynamic tab functionality with menu on the left using .nav-stacked class.</p> -->
 		  
@@ -1612,7 +1613,7 @@
 					</div>
 					<div class="tab-pane" id="recent5">
 					  <div class="col-sm-8 col-md-9 col-lg-12 people-list">
-						<div class="people-options clearfix">
+						<!--  <div class="people-options clearfix">
 						  <div class="btn-toolbar pull-left">
 							<button type="button" class="btn btn-success btn-quirk">Add to Contacts</button>
 							<button type="button" class="btn btn-success btn-quirk">Add to Group</button>
@@ -1631,22 +1632,32 @@
 						  <span class="people-count pull-right">Showing <strong>1-10</strong> of <strong>34,404</strong> users</span>
 						</div><!-- people-options -->
 
-						<div class="panel panel-profile list-view">
+						<div *ngFor="let clients of clientData;let client_no = index" class="panel panel-profile list-view">
 						  <div class="panel-heading">
 							<div class="media">
 							  <div class="media-left">
-								<a href="#">
+								<!--  <a href="#">
 								  <img class="media-object img-circle" src="../images/photos/user1.png" alt="">
-								</a>
+								</a>-->
 							  </div>
 							  <div class="media-body">
-								<h4 class="media-heading">Customer Name</h4>
-								<p class="media-usermeta"><i class="glyphicon glyphicon-briefcase"></i> Website URL</p>
+								<h4 *ngIf="client_no !== clientEditId" class="media-heading">{{clients.client_name}}</h4>
+								<div  >
+								<h4  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_name" (input)="client_name=$event.target.textContent" >{{client_name}}</h4>
+								</div>
+								<p *ngIf="client_no !== clientEditId"  class="media-usermeta"><i class="glyphicon glyphicon-briefcase"></i>{{clients.website_url}}</p>
+								<div *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_url" (input)="client_url=$event.target.textContent" > 
+								<p class="media-usermeta"><i class="glyphicon glyphicon-briefcase"></i>{{client_url}}</p>
+							  </div>
 							  </div>
 							</div><!-- media -->
-							<ul class="panel-options">
-							  <li><a class="tooltips" href="" data-toggle="tooltip" title="View Options"><i class="glyphicon glyphicon-option-vertical"></i></a></li>
-							</ul>
+							<div class="panel-options" >
+							<a  *ngIf="client_no !== clientEditId" (click)="deleteClient(clients)"><i class="fa fa-trash"></i></a>
+							 <a (click)="editClient(client_no,clients)"><i class="fa fa-pencil"></i></a>
+							</div>
+							<!-- <ul class="panel-options">
+							  <li><a class="tooltips" href="" data-toggle="tooltip" title="View Options"><i class="fa fa-trash"></i></a></li>
+							</ul> -->
 						  </div><!-- panel-heading -->
 
 						  <div class="panel-body people-info">
@@ -1654,19 +1665,30 @@
 							  <div class="col-sm-4">
 								<div class="info-group">
 								  <label>PAN</label>
-								  San Francisco, CA, USA
+								  <div  *ngIf="client_no !== clientEditId"  >
+								  {{clients.pan}}
+								 </div> 
+								 <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_pan" (input)="client_pan=$event.target.textContent" >
+								  {{client_pan}}
+								 </div> 
 								</div>
 							  </div>							
-							  <div class="col-sm-4">
+							  <div  class="col-sm-4">
 								<div class="info-group">
 								  <label>GSTN</label>
-								  San Francisco, CA, USA
+								  <div  *ngIf="client_no !== clientEditId"  > {{clients.gstn}}</div>
+								  <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_gstn" (input)="client_gstn=$event.target.textContent" >
+								  {{client_gstn}}
+								 </div> 
 								</div>
 							  </div>
 							  <div class="col-sm-4">
-								<div class="info-group">
+								<div  class="info-group">
 								  <label>Registered Address</label>
-								  christina.hill@email.com
+								    <div  *ngIf="client_no !== clientEditId"  > {{clients.registered_address}}</div>
+								     <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_registered_address" (input)="client_registered_address=$event.target.textContent" >
+								  {{client_registered_address}}
+								 </div> 
 								</div>
 							  </div>
 							</div>
@@ -1674,114 +1696,60 @@
 							  <div class="col-sm-4">
 								<div class="info-group">
 								  <label>Mailing Address</label>
-								  386-7521860
+								    <div  *ngIf="client_no !== clientEditId"  > {{clients.mailing_address}}</div>
+								    <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_mailing_address" (input)="client_mailing_address=$event.target.textContent" >
+								  {{client_mailing_address}}
+								 </div> 
 								</div>
 							  </div>
 							  <div class="col-sm-4">
-								<div class="info-group">
+								<div  class="info-group">
 								  <label>Managing Director/Owner</label>
-								  San Francisco, CA, USA
+								    <div  *ngIf="client_no !== clientEditId"  >{{clients.managing_director}}</div>
+								    <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_managing_director" (input)="client_managing_director=$event.target.textContent" >
+								  {{client_managing_director}}
+								 </div> 
 								</div>
 							  </div>
 							  <div class="col-sm-4">
 								<div class="info-group">
 								  <label>Contact Person</label>
-								  christina.hill@email.com
+								    <div  *ngIf="client_no !== clientEditId"  >{{clients.contact_person}}</div>
+								    <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_contact_person" (input)="client_contact_person=$event.target.textContent" >
+								  {{client_contact_person}}
+								 </div> 
 								</div>
 							  </div>
 							</div>
-							<div class="row">
+							<div  class="row">
 							  <div class="col-sm-4">
 								<div class="info-group">
 								  <label>Phone Number</label>
-								  386-7521860
+								   <div  *ngIf="client_no !== clientEditId"  > {{clients.phone_number}}</div>
+								    <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_phone_number" (input)="client_phone_number=$event.target.textContent" >
+								  {{client_phone_number}}
+								 </div> 
 								</div>
 							  </div>	
 							  <div class="col-sm-4">
 								<div class="info-group">
 								  <label>Email Address</label>
-								  386-7521860
+								    <div  *ngIf="client_no !== clientEditId"  >{{clients.email_id}}</div>
+								     <div  *ngIf="client_no === clientEditId" contenteditable="true" [textContent]="client_email_id" (input)="client_email_id=$event.target.textContent" >
+								  {{client_email_id}}
+								 </div> 
 								</div>
 							  </div>						  
 							</div><!-- row -->
 						  </div>
+						 
+						 <div *ngIf="client_no === clientEditId"><button [disabled]="clientUpdateDisabled" (click)="updateClient(clients)">Update</button></div>
+						  <div *ngIf="updateClientSuccess && client_no === clientEditId"   class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
+				   <div *ngIf="updateClientFail && client_no === clientEditId"  class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	
 						</div><!-- panel -->
-
-						<div class="panel panel-profile list-view">
-						  <div class="panel-heading">
-							<div class="media">
-							  <div class="media-left">
-								<a href="#">
-								  <img class="media-object img-circle" src="../images/photos/user1.png" alt="">
-								</a>
-							  </div>
-							  <div class="media-body">
-								<h4 class="media-heading">Customer Name</h4>
-								<p class="media-usermeta"><i class="glyphicon glyphicon-briefcase"></i> Website URL</p>
-							  </div>
-							</div><!-- media -->
-							<ul class="panel-options">
-							  <li><a class="tooltips" href="" data-toggle="tooltip" title="View Options"><i class="glyphicon glyphicon-option-vertical"></i></a></li>
-							</ul>
-						  </div><!-- panel-heading -->
-
-						  <div class="panel-body people-info">
-							<div class="row">
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>PAN</label>
-								  San Francisco, CA, USA
-								</div>
-							  </div>							
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>GSTN</label>
-								  San Francisco, CA, USA
-								</div>
-							  </div>
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Registered Address</label>
-								  christina.hill@email.com
-								</div>
-							  </div>
-							</div>
-							<div class="row">
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Mailing Address</label>
-								  386-7521860
-								</div>
-							  </div>
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Managing Director/Owner</label>
-								  San Francisco, CA, USA
-								</div>
-							  </div>
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Contact Person</label>
-								  christina.hill@email.com
-								</div>
-							  </div>
-							</div>
-							<div class="row">
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Phone Number</label>
-								  386-7521860
-								</div>
-							  </div>	
-							  <div class="col-sm-4">
-								<div class="info-group">
-								  <label>Email Address</label>
-								  386-7521860
-								</div>
-							  </div>						  
-							</div><!-- row -->
-						  </div>
-						</div><!-- panel -->
+					
+               <div [hidden]="!deleteClientSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
+				   <div [hidden]="!deleteClientFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	
 
 					  </div>				  
 					</div>
