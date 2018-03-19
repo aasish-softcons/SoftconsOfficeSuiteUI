@@ -33,6 +33,10 @@ export class SettingsService {
   public getTeamUrl =  GlobalVariable.BASE_API_URL +'getAllTeamByCId/';
   public addTeamUrl =  GlobalVariable.BASE_API_URL + 'addTeams';
   public updateTeamUrl =  GlobalVariable.BASE_API_URL + 'updateTeam';
+  public deleteTeamUrl =  GlobalVariable.BASE_API_URL + 'deleteTeam';
+  
+  public getTagUrl =  GlobalVariable.BASE_API_URL +'getAllTagsList';
+  public addTagUrl =  GlobalVariable.BASE_API_URL + 'addTags';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -286,8 +290,7 @@ console.log(this.getDepartmentUrl)
   
   //function to delete the team
   
-   
-  //function to delete department
+
 
  deleteTeam(teamData): Observable<SettingsComponent[]> {
 
@@ -296,11 +299,27 @@ console.log(this.getDepartmentUrl)
   let options = new RequestOptions({ headers: headers });
 
  console.log("anjana"+ JSON.stringify(teamData));
-    return this.http.post(this.deleteDepartmentUrl, teamData, options)
+    return this.http.post(this.deleteTeamUrl,teamData, options)
                     .map(this.extractData)
                     .catch(this.handleError);
 
   }
+  
+  
+  // function to get the tag list
+ //function to add tag
+  addTag(tagData): Observable<SettingsComponent[]> {
+
+     
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(tagData));
+    return this.http.post(this.addTagUrl, tagData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }  
   
   
   

@@ -98,6 +98,31 @@ export class SettingsComponent implements OnInit {
   client_phone_number:string;
   client_email_id:string;
   clientUpdateDisabled=false;
+  
+  team:SettingsComponent[];
+  teamData:any[];
+  teamActionSuccess=false;
+  teamActionFail=false;
+  teamInfo:string;
+  teams_name:any;
+  team_lead:any;
+  team_location:any;
+  team_function:any;
+  team_members:any;
+  teamEditindex:any;
+  
+  tagData:any[];
+  tag:SettingsComponent[];
+  tag_name:any;
+  tag_description:string;
+  tagActionSuccess=false;
+  tagActionFail=false;
+  tagInfo:string;
+
+  
+  
+  
+  
 
   projectData: any[];
   customer_name: any;
@@ -155,6 +180,10 @@ export class SettingsComponent implements OnInit {
     email_address: ["", [Validators.required,Validators.pattern(this.emailpattern)]]
 }); 
   
+  public tagForm=this.fb.group({
+  tag_name:["",Validators.required],
+  tag_description:["",Validators.required]  
+  })
   
 
   getCompany() {
@@ -194,6 +223,7 @@ export class SettingsComponent implements OnInit {
     
     this.getDepartment();
     this.getClient();
+     this.getTeam();
      
  // console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
@@ -566,7 +596,7 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
      {
  alert("Please enter all fields");
    }
-    else if(!/[0-9]{10}/.test(this.client_phone_number)){
+    else if(!/^[0-9]*$/.test(this.client_phone_number)){
     alert("Please enter valid Phone number");
    }
     else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/.test(this.client_email_id)) {
@@ -674,7 +704,7 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
               
               {
                 
-            // this.clientData=client;
+             this.teamData=team;
               
                
               }
@@ -687,6 +717,235 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
                        error =>  this.errorMessage = <any>error);
   
   }
+  
+  
+  
+// function to add team
+addTeam() {
+ 
+let teamData={ TeamInfo:JSON.stringify({team_name:this.teams_name,status:1,company_id:this.companyId,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23',location:this.team_location,function:this.team_function,teamlead:this.team_lead,members:this.team_members}) };
+ console.log(teamData);
+  
+  if(this.teams_name==""||this.team_lead==""||this.team_location==""||this.team_function==""||this.team_members==null){
+  alert("Please enter all the fields");
+  
+  }
+  else{
+     this.settingsService.addTeam(teamData)
+        
+                     .subscribe(
+                     team => {
+            console.log("inside component");
+              console.log(JSON.stringify(team));
+              
+              if(team["message"]==="Teams are created successfully")
+              
+              {
+              this.teamActionSuccess=true;
+           this.teamInfo="Team added successfully";
+                this. teams_name="";
+                this.team_lead="";
+                this.team_location="";
+                this.team_function="";
+                this.team_members=null;
+                this.getTeam();
+                 setTimeout(function() {
+       this.teamActionSuccess = false;
+       
+   }.bind(this), 3000)
+                
+                
+              }
+              else{
+                this.teamActionFail=true;
+                      this.teamInfo="Error occured while adding team";    
+                setTimeout(function() {
+       this.teamActionFail = false;
+       
+   }.bind(this), 3000)  
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  
+  }
+     
+  }
+  
+  
+  
+  
+ //when user clicks edit
+editTeam(row_no){
+  this.teamEditindex=row_no;
+  
+}  
+
+updateTeam(id,name,lead,locations,functions,member){
+   
+  // this.teamId=id;
+  let teamtData={TeamInfo:JSON.stringify({id:id,team_name:name,status:1,company_id:this.companyId,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23',location:locations,function:functions,teamlead:lead,members:member}) };
+ console.log(teamtData);
+   if(name==""||lead==""||locations==""||functions==""||member==null){
+  alert("Please enter all the fields");
+  
+  }
+  else{
+    this.teamEditindex="";
+   this.settingsService.updateTeam(teamtData)
+                     .subscribe(
+                     team => {
+            console.log("inside component");
+              console.log(JSON.stringify(team));
+               
+          
+              if(team["message"]=="You are successfully updated")
+              
+              {
+               
+              this.teamActionSuccess=true;
+               this.teamInfo="Team updated successfully";
+               
+                
+                setTimeout(function() {
+       this.teamActionSuccess = false;
+       
+   }.bind(this), 3000)
+              }
+              else{
+              
+                   this.teamActionFail=true;
+               this.teamInfo="Team update failed";      
+                setTimeout(function() {
+          this.teamActionFail = false;
+       
+         }.bind(this), 3000) 
+                    
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  }
+   }
+      
+      
+      
+ deleteTeam(id,name,lead,location,functions,member){
+   // this.teamId=id;
+ let teamData={TeamInfo:JSON.stringify({id:id,team_name:name,status:1,company_id:this.companyId,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23',location:location,function:functions,teamlead:lead,members:member}) };
+   
+   this.settingsService.deleteTeam(teamData)
+                     .subscribe(
+                     team => {
+            console.log("inside component");
+              console.log(JSON.stringify(team));
+               
+          
+              if(team["message"]=="You are successfully made Inactive")
+              
+              {
+               
+              this.teamActionSuccess=true;
+               this.teamInfo="Team deleted successfully";
+                 this.getTeam();
+               
+                
+                setTimeout(function() {
+       this.teamActionSuccess = false;
+       
+   }.bind(this), 3000)
+              }
+              else{
+              
+                   this.teamActionFail=true;
+               this.teamInfo="Team delete failed";      
+                setTimeout(function() {
+          this.teamActionFail = false;
+       
+         }.bind(this), 3000) 
+                    
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  this.getTeam();
+  }
+
+  // function to get list of tags
+ /* getTags(){
+  
+  this.settingsService.getTags()
+                     .subscribe(
+                     tag => {
+           
+            console.log("inside get client component service call");
+              console.log(JSON.stringify(tag));
+              
+              if(tag)
+              
+              {
+                
+             this.tagData=tag;
+              
+               
+              }
+              else{
+              
+                            
+              }
+              
+               },
+                       error =>  this.errorMessage = <any>error);
+  
+  }
+*/
+  
+  
+// function to add tags
+addTag() {
+ 
+let tagData={TagInfo:JSON.stringify({tag_name:this.tag_name,tag_description:this.tag_description,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+ console.log(tagData);
+  
+  
+
+     this.settingsService.addTag(tagData)
+        
+                     .subscribe(
+                     tag => {
+            console.log("inside component");
+              console.log(JSON.stringify(tag));
+              
+              if(tag["message"]==="Tags are created successfully")
+              
+              {
+              this.tagActionSuccess=true;
+           this.tagInfo="Tag added successfully";
+               
+                // this.getTag();
+                 setTimeout(function() {
+       this.tagActionSuccess = false;
+       
+   }.bind(this), 3000)
+                
+                
+              }
+              else{
+                this.tagActionFail=true;
+                      this.tagInfo="Error occured while adding tag";    
+                setTimeout(function() {
+       this.tagActionFail = false;
+       
+   }.bind(this), 3000)  
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  
+ 
+     
+  }
+  
   
   
 

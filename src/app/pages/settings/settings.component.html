@@ -1916,39 +1916,52 @@
 					  </thead>
 					  <tbody>
 						<tr>
-						  <td><input type="text" name="team_name" /></td>
-						  <td><input type="text" name="team_lead" /></td>
-						  <td><input type="text" name="location" /></td>
-						  <td><input type="text" name="function" /></td>
-						  <td><input type="text" name="members" /></td>
-						  <td><i class="fa fa-plus"></i></td>
+						  <td><input type="text" [(ngModel)]="teams_name" name="teams_name" /></td>
+						  <td><input type="text" [(ngModel)]="team_lead" name="team_lead" /></td>
+						  <td><input type="text" [(ngModel)]="team_location" name="team_location" /></td>
+						  <td><input type="text" [(ngModel)]="team_function" name="team_function" /></td>
+						  <td><input type="text" [(ngModel)]="team_members" name="team_members" /></td>
+						  <td (click)="addTeam()"><i class="fa fa-plus"></i></td>
 						</tr>					  
-						<tr>
-						  <td>Tiger Nixon</td>
-						  <td>System Architect</td>
-						  <td>Edinburgh</td>
-						  <td>61</td>
-						  <td>2011/04/25</td>
-						  <td><i class="fa fa-pencil"></i></td>
-						</tr>
-						<tr>
-						  <td>Sonya Frost</td>
-						  <td>Software Engineer</td>
-						  <td>Edinburgh</td>
-						  <td>23</td>
-						  <td>2008/12/13</td>
-						  <td><i class="fa fa-pencil"></i></td>
-						</tr>
-						<tr>
-						  <td>Jena Gaines</td>
-						  <td>Office Manager</td>
-						  <td>London</td>
-						  <td>30</td>
-						  <td>2008/12/19</td>
-						  <td><i class="fa fa-pencil"></i></td>
-						</tr>						
+						<tr *ngFor=" let team of teamData;let team_index = index">
+						<td *ngIf="team_index ===teamEditindex">
+                       <input type="text" [(ngModel)]="team.team_name" />
+                   </td>
+                   <td *ngIf="team_index !== teamEditindex"   >
+                     {{team.team_name}}
+                              </td>
+                     <td *ngIf="team_index === teamEditindex">
+                       <input type="text" [(ngModel)]="team.teamlead" />
+                   </td>
+                   <td *ngIf="team_index !== teamEditindex"   >
+                     {{team.teamlead}}
+                              </td>
+                     <td *ngIf="team_index === teamEditindex">
+                       <input type="text" [(ngModel)]="team.location" />
+                   </td>
+                   <td *ngIf="team_index !== teamEditindex"   >
+                     {{team.location}}
+                              </td>
+                      <td *ngIf="team_index === teamEditindex">
+                       <input type="text" [(ngModel)]="team.function" />
+                   </td>
+                   <td *ngIf="team_index !== teamEditindex" >
+                     {{team.function}}
+                              </td>
+                     <td *ngIf="team_index === teamEditindex">
+                       <input type="number" [(ngModel)]="team.members" />
+                   </td>
+                   <td *ngIf="team_index !== teamEditindex" >
+                     {{team.members}}
+                              </td>
+						 <td *ngIf="team_index !== teamEditindex"> <a (click)="editTeam(team_index)" ><i class="fa fa-pencil"></i></a> <a (click)="deleteTeam(team.id,team.team_name,team.teamlead,team.location,team.function,team.members)"><i class="fa fa-trash"></i></a></td>
+						<td *ngIf="team_index === teamEditindex"><button (click)="updateTeam(team.id,team.team_name,team.teamlead,team.location,team.function,team.members)">Update</button></td>		
+					
+						</tr>					
 					  </tbody>
 					</table>
+					 <div [hidden]="!teamActionSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{teamInfo}}</div>			
+				   <div [hidden]="!teamActionFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{teamInfo}}</div>
 				  </div>				
 				
  				  <!--<form>			  
@@ -2045,15 +2058,20 @@
 								  <div id="collapseOne51" class="panel-collapse collapse in">
 								  
 									<div class="panel-body">
-										<form>
+										<form [formGroup]="tagForm" (ngSubmit)="addTag()">
 											  <div class="form-group">
-												<input type="text" name="tag_name" class="form-control" />
+												<input type="text"  [(ngModel)]="tag_name" name="tag_name" class="form-control" formControlName="tag_name" placeholder="Tag Name"/>
+											  </div>	
+											    <div class="form-group">
+												<input type="text"  [(ngModel)]="tag_description" name="tag_description" class="form-control" formControlName="tag_description" placeholder="Tag Descriptin" />
 											  </div>											   
 											  <div class="form-group">
-												<input type="submit" name="Add" value="Add" class="btn btn-primary" />
+												<input type="submit" [disabled]="!tagForm.valid" name="Add" value="Add" class="btn btn-primary" />
 												<input type="button" name="Cancel" value="Cancel" class="btn btn-danger" />
 											  </div>					  
 										  </form>
+										  <div [hidden]="!tagActionSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{tagInfo}}</div>			
+				                           <div [hidden]="!tagActionFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{tagInfo}}</div>
 										   <div class="fm-sidebar" style="padding-top:10px;padding-left: 0px;">
 												<h4 class="media-heading">List of Tags :</h4>
 												<ul class="tag-list">
