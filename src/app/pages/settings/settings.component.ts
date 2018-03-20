@@ -177,7 +177,7 @@ export class SettingsComponent implements OnInit {
      client_owner: ["", Validators.required],
     contact_person: ["", Validators.required],
     phone_number: ["", Validators.required],
-    email_address: ["", [Validators.required,Validators.pattern(this.emailpattern)]]
+    email_address: ["", [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]]
 }); 
   
   public tagForm=this.fb.group({
@@ -224,6 +224,7 @@ export class SettingsComponent implements OnInit {
     this.getDepartment();
     this.getClient();
      this.getTeam();
+    this.getTags();
      
  // console.log(this.companyId);
   localStorage.setItem('companyID', this.companyId);
@@ -533,6 +534,7 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
               this.showClientSuccess=true;
            this.clientInfo="Customer added successfully";
                 this.getClient();
+                 this.clientForm.reset();
                 
                
                
@@ -872,7 +874,7 @@ updateTeam(id,name,lead,locations,functions,member){
   }
 
   // function to get list of tags
- /* getTags(){
+getTags(){
   
   this.settingsService.getTags()
                      .subscribe(
@@ -898,7 +900,7 @@ updateTeam(id,name,lead,locations,functions,member){
                        error =>  this.errorMessage = <any>error);
   
   }
-*/
+
   
   
 // function to add tags
@@ -921,8 +923,7 @@ let tagData={TagInfo:JSON.stringify({tag_name:this.tag_name,tag_description:this
               {
               this.tagActionSuccess=true;
            this.tagInfo="Tag added successfully";
-               
-                // this.getTag();
+              this.getTags();
                  setTimeout(function() {
        this.tagActionSuccess = false;
        
@@ -945,6 +946,54 @@ let tagData={TagInfo:JSON.stringify({tag_name:this.tag_name,tag_description:this
  
      
   }
+  
+  
+  // function to delete tag
+deleteTag(tags) {
+ 
+
+ 
+let tagData={TagInfo:JSON.stringify({id:tags.id,tag_name:tags.tag_name,tag_description:tags.tag_description,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+ console.log(tagData);
+  
+  
+
+     this.settingsService.deleteTag(tagData)
+        
+                     .subscribe(
+                     tag => {
+            console.log("inside component");
+              console.log(JSON.stringify(tag));
+               this.getTags();
+              if(tag["message"]==="Tags are created successfully")
+              
+              {
+              this.tagActionSuccess=true;
+           this.tagInfo="Tag added successfully";
+             
+                 setTimeout(function() {
+       this.tagActionSuccess = false;
+       
+   }.bind(this), 3000)
+                
+                
+              }
+              else{
+                this.tagActionFail=true;
+                      this.tagInfo="Error occured while adding tag";    
+                setTimeout(function() {
+       this.tagActionFail = false;
+       
+   }.bind(this), 3000)  
+              }
+              
+               },
+                      error =>  this.errorMessage = <any>error);  
+  
+ 
+     
+  }
+  
   
   
   
