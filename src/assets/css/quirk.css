@@ -10407,8 +10407,11 @@ blockquote {
   color: #3b4354;
 }
 .panel-profile .people-info .info-group {
+	margin-left:200px;
   padding: 15px;
-  background-color: #f9fafb;
+  // background-color: #f9fafb;
+  height:100px;
+background-color:#bdc3d1;
   margin-left: 1px;
 }
 .panel-profile .people-info .info-group label {
@@ -13545,6 +13548,7 @@ fieldset[disabled] .btn-fb.active {
   padding-bottom: 0;
 }
 /****** PEOPLE DIRECTORY ******/
+
 .people-list .people-options {
   padding: 15px;
   margin-bottom: 20px;

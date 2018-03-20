@@ -141,9 +141,9 @@
 						  <td><input type="text" [(ngModel)]="location" name="location" /></td>
 						  <td><input type="text" [(ngModel)]="functions" name="functions"/></td>
 						  <td><input type="number" [(ngModel)]="members" name="members" /></td>
-						<td> <a (click)="addDepartment()" ><i class="fa fa-plus"></i></a></td>
+						<td> <a (click)="addDepartment()" ><i class="fa fa-save"></i></a></td>
 						</tr>	
-						<tr *ngFor=" let department of departmentData;let row_no = index">
+						<tr *ngFor=" let department of departmentData|sortBy:'id';let row_no = index">
 						<td *ngIf="row_no === editRowId">
                        <input type="text" [(ngModel)]="department.department_name" />
                    </td>
@@ -175,7 +175,7 @@
                      {{department.department_members}}
                               </td>
 						 <td *ngIf="row_no !== editRowId"> <a (click)="editDepartment(row_no)" ><i class="fa fa-pencil"></i></a> <a (click)="deleteDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)"><i class="fa fa-trash"></i></a></td>
-						<td *ngIf="row_no === editRowId"><button (click)="updateDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)">Update</button></td>		
+						<td *ngIf="row_no === editRowId"><button (click)="updateDepartment(department.id,department.department_name,department.department_head,department.department_location,department.department_function,department.department_members)" class="btn btn-primary">Update</button></td>		
 					
 						</tr>
 						
@@ -1632,7 +1632,7 @@
 						  <span class="people-count pull-right">Showing <strong>1-10</strong> of <strong>34,404</strong> users</span>
 						</div><!-- people-options -->
 
-						<div *ngFor="let clients of clientData;let client_no = index" class="panel panel-profile list-view">
+						<div *ngFor="let clients of clientData|sortBy:'id';let client_no = index" class="panel panel-profile list-view">
 						  <div class="panel-heading">
 							<div class="media">
 							  <div class="media-left">
@@ -1652,7 +1652,7 @@
 							  </div>
 							</div><!-- media -->
 							<div class="panel-options" >
-							<a  *ngIf="client_no !== clientEditId" (click)="deleteClient(clients)"><i class="fa fa-trash"></i></a>
+							<a  *ngIf="client_no !== clientEditId" (click)="deleteClient(client_no,clients)"><i class="fa fa-trash"></i></a>
 							 <a (click)="editClient(client_no,clients)"><i class="fa fa-pencil"></i></a>
 							</div>
 							<!-- <ul class="panel-options">
@@ -1742,14 +1742,15 @@
 							  </div>						  
 							</div><!-- row -->
 						  </div>
-						 
-						 <div *ngIf="client_no === clientEditId"><button [disabled]="clientUpdateDisabled" (click)="updateClient(clients)">Update</button></div>
+						  <div *ngIf="client_no === clientEditId"><button [disabled]="clientUpdateDisabled" (click)="updateClient(clients)">Update</button></div>
 						  <div *ngIf="updateClientSuccess && client_no === clientEditId"   class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
 				   <div *ngIf="updateClientFail && client_no === clientEditId"  class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	
+					<div [hidden]="!deleteClientSuccess || client_no !== clientDeleteId" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
+				   <div [hidden]="!deleteClientFail ||  client_no !== clientDeleteId " class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	
 						</div><!-- panel -->
 					
-               <div [hidden]="!deleteClientSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
-				   <div [hidden]="!deleteClientFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	
+              <!--  <div [hidden]="!deleteClientSuccess" class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>			
+				   <div [hidden]="!deleteClientFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{clientInfo}}</div>	 -->
 
 					  </div>				  
 					</div>
@@ -1920,10 +1921,10 @@
 						  <td><input type="text" [(ngModel)]="team_lead" name="team_lead" /></td>
 						  <td><input type="text" [(ngModel)]="team_location" name="team_location" /></td>
 						  <td><input type="text" [(ngModel)]="team_function" name="team_function" /></td>
-						  <td><input type="text" [(ngModel)]="team_members" name="team_members" /></td>
-						  <td (click)="addTeam()"><i class="fa fa-plus"></i></td>
+						  <td><input type="number" [(ngModel)]="team_members" name="team_members" /></td>
+						 <td ><a (click)="addTeam()"><i class="fa fa-floppy-o"></i></a></td> 
 						</tr>					  
-						<tr *ngFor=" let team of teamData;let team_index = index">
+						<tr *ngFor=" let team of teamData|sortBy:'id';let team_index = index">
 						<td *ngIf="team_index ===teamEditindex">
                        <input type="text" [(ngModel)]="team.team_name" />
                    </td>
@@ -1955,7 +1956,7 @@
                      {{team.members}}
                               </td>
 						 <td *ngIf="team_index !== teamEditindex"> <a (click)="editTeam(team_index)" ><i class="fa fa-pencil"></i></a> <a (click)="deleteTeam(team.id,team.team_name,team.teamlead,team.location,team.function,team.members)"><i class="fa fa-trash"></i></a></td>
-						<td *ngIf="team_index === teamEditindex"><button (click)="updateTeam(team.id,team.team_name,team.teamlead,team.location,team.function,team.members)">Update</button></td>		
+						<td *ngIf="team_index === teamEditindex"><button (click)="updateTeam(team.id,team.team_name,team.teamlead,team.location,team.function,team.members)" class="btn btn-primary">Update</button></td>		
 					
 						</tr>					
 					  </tbody>
@@ -2074,10 +2075,9 @@
 				                           <div [hidden]="!tagActionFail" class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{tagInfo}}</div>
 										   <div class="fm-sidebar" style="padding-top:10px;padding-left: 0px;">
 												<h4 class="media-heading">List of Tags :</h4>
-												<ul class="tag-list">
-												  <li><a href="">India <i class="fa fa-close"></i></a></li>
-												  <li><a href="">US <i class="fa fa-close"></i></a></li>
-												  <li><a href="">Dubai <i class="fa fa-close"></i></a></li>
+												<ul  *ngFor="let tags of tagData" class="tag-list">
+												  <li><a href="">{{tags.tag_name}} </a><span><i  class="fa fa-close" (click)="deleteTag(tags)"></i></span></li>
+												
 												</ul>	
 										   </div>											  
 										  

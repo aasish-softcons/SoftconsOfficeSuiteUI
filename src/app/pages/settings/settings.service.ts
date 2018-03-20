@@ -37,6 +37,7 @@ export class SettingsService {
   
   public getTagUrl =  GlobalVariable.BASE_API_URL +'getAllTagsList';
   public addTagUrl =  GlobalVariable.BASE_API_URL + 'addTags';
+  public deleteTagUrl =  GlobalVariable.BASE_API_URL + 'deleteTag';
 
   public GetProjectUrl = GlobalVariable.BASE_API_URL + 'getCompanyListById/' + this.companyId;
   public AddProjectUrl = GlobalVariable.BASE_API_URL + 'addProject';
@@ -307,6 +308,22 @@ console.log(this.getDepartmentUrl)
   
   
   // function to get the tag list
+  
+  
+   getTags(): Observable<SettingsComponent[]> {
+ //let companyId =localStorage.getItem("companyID")
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+ 
+    return this.http.get(this.getTagUrl , options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+          
+          
+ 
+  }
+  
+  
  //function to add tag
   addTag(tagData): Observable<SettingsComponent[]> {
 
@@ -321,12 +338,27 @@ console.log(this.getDepartmentUrl)
 
   }  
   
+  //function to delete tag
+   deleteTag(tagData): Observable<SettingsComponent[]> {
+
+     
+       let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' });
+  let options = new RequestOptions({ headers: headers });
+
+ console.log("anjana"+ JSON.stringify(tagData));
+    return this.http.post(this.deleteTagUrl, tagData, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
+  }  
   
   
   private extractData(res: Response) {
-    let body = res.json();
+   // let body = res.json();
   //alert(JSON.stringify(body));
-    return body || { };
+  return res.text() ? res.json() : [];
+   // return res.text() ? body : {}; ;
+   // return body || [];
   }
 
 private handleError (error: Response | any) {

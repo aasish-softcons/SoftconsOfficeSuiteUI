@@ -5,6 +5,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   import { DatePipe } from '@angular/common';
+import {sortPipe} from '../settings//filter.pipe';
 
 
 
@@ -12,7 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'settings',
   templateUrl: './settings.component.html',
   //styleUrls: ['./settings.component.css']
+  
   providers: [ SettingsService ]
+ 
 })
 export class SettingsComponent implements OnInit {
    disabled=false;
@@ -87,6 +90,7 @@ export class SettingsComponent implements OnInit {
   deleteClientSuccess=false;
   deleteClientFail=false;
   clientEditId:any;
+  clientDeleteId:any;
   client_name:string;
   client_url:string;
   client_pan:string;
@@ -303,7 +307,7 @@ console.log(companyData);
 
 // function to get department list
 getDepartment(){
- console.log("get deparment component");
+
   console.log(this.companyId);
   this.settingsService.getDepartment(this.companyId)
                      .subscribe(
@@ -397,7 +401,7 @@ editDepartment(row_no){
 updateDepartment(id,name,head,location,functions,member){
    
   this.departmentId=id;
-  let departmentData={DepartmentInfo:JSON.stringify({id:this.departmentId,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date:this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+  let departmentData={DepartmentInfo:JSON.stringify({id:id,company_id:this.companyId,department_name:name,department_head:head,department_location:location,department_function:functions,department_members:member,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
  console.log(departmentData);
    if(name==""||head==""||location==""||functions==""||member==null){
   alert("Please enter all the fields");
@@ -649,7 +653,9 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
 
   
   // function to delete client
-  deleteClient(clients){
+  deleteClient(client_no,clients){
+    
+    this.clientDeleteId=client_no;
  console.log(clients);
  let clientData={ ClientInfo:JSON.stringify({id:clients.id,client_name:clients.client_name,company_id:clients.company_id,website_url:clients.website_url,pan:clients.pan,gstn:clients.gstn,registered_address:clients.registered_address,managing_director:clients.managing_director,mailing_address:clients.mailing_address,contact_person:clients.contact_person,phone_number:clients.phone_number,email_id:clients.email_id,status:1,date_created:'',created_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
      console.log(clientData);
@@ -667,7 +673,8 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
                
              this.deleteClientSuccess=true;
                this.clientInfo="Client deleted successfully";
-                 this.getClient();
+			   this.getClient();
+               
                
                 
                 setTimeout(function() {
@@ -678,7 +685,8 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
               else{
               
                    this.deleteClientFail=true;
-               this.clientInfo="Client delete failed";      
+               this.clientInfo="Client delete failed";   
+                 this.getClient();   
                 setTimeout(function() {
           this.deleteClientFail = false;
        
@@ -688,6 +696,7 @@ let clientData={ ClientInfo:JSON.stringify({client_name:this.customerName,compan
               
                },
                       error =>  this.errorMessage = <any>error);  
+     
   }
   
   
@@ -953,7 +962,7 @@ deleteTag(tags) {
  
 
  
-let tagData={TagInfo:JSON.stringify({id:tags.id,tag_name:tags.tag_name,tag_description:tags.tag_description,last_updated:'',updated_by:this.userId,start_date: this.yesterdaysFormattedDate,end_date:'2020-03-16 12:13:23'}) };
+let tagData={TagInfo:JSON.stringify({id:tags.id}) };
  console.log(tagData);
   
   
